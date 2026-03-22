@@ -1,0 +1,2912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>★ MunglesGuide.com ★ The ULTIMATE Valorant Guide by MUNGLE ★</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Press+Start+2P&family=Russo+One&family=Bungee+Shade&family=Permanent+Marker&family=VT323&display=swap');
+
+  :root {
+    --neon-green: #39ff14;
+    --neon-pink: #ff1493;
+    --neon-cyan: #00ffff;
+    --neon-orange: #ff6600;
+    --neon-yellow: #ffff00;
+    --dark-bg: #0a0a1a;
+    --panel-bg: #111133;
+    --border-gold: #ffd700;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark-bg);
+    color: #fff;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><text y='18' font-size='18'>🎯</text></svg>"), auto;
+  }
+
+  /* === STARFIELD BACKGROUND === */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(1px 1px at 10% 20%, #fff 1px, transparent 0),
+      radial-gradient(1px 1px at 30% 60%, #fff 1px, transparent 0),
+      radial-gradient(1px 1px at 50% 10%, var(--neon-cyan) 1px, transparent 0),
+      radial-gradient(1px 1px at 70% 80%, #fff 1px, transparent 0),
+      radial-gradient(1px 1px at 90% 40%, var(--neon-pink) 1px, transparent 0),
+      radial-gradient(2px 2px at 15% 85%, var(--neon-green) 1px, transparent 0),
+      radial-gradient(1px 1px at 45% 45%, #fff 1px, transparent 0),
+      radial-gradient(1px 1px at 65% 25%, #fff 1px, transparent 0),
+      radial-gradient(1px 1px at 85% 65%, var(--neon-yellow) 1px, transparent 0),
+      radial-gradient(1px 1px at 25% 35%, #fff 1px, transparent 0),
+      radial-gradient(1px 1px at 55% 75%, #fff 1px, transparent 0),
+      radial-gradient(2px 2px at 5% 50%, var(--neon-orange) 1px, transparent 0),
+      radial-gradient(1px 1px at 75% 15%, #fff 1px, transparent 0),
+      radial-gradient(1px 1px at 35% 95%, #fff 1px, transparent 0),
+      radial-gradient(1px 1px at 95% 5%, var(--neon-cyan) 1px, transparent 0);
+    background-size: 200px 200px;
+    animation: twinkle 4s ease-in-out infinite alternate;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  @keyframes twinkle {
+    0% { opacity: 0.4; }
+    100% { opacity: 0.8; }
+  }
+
+  /* === SCROLLBAR === */
+  ::-webkit-scrollbar { width: 14px; }
+  ::-webkit-scrollbar-track { background: #000; border: 2px solid var(--neon-green); }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(var(--neon-pink), var(--neon-cyan)); border-radius: 0; }
+
+  /* === TOP TICKER === */
+  .ticker-wrap {
+    background: linear-gradient(90deg, #ff0000, #ff6600, #ffff00, #00ff00, #0066ff, #9900ff, #ff0000);
+    background-size: 300% 100%;
+    animation: rainbowSlide 3s linear infinite;
+    padding: 4px 0;
+    border-bottom: 3px solid var(--border-gold);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  @keyframes rainbowSlide {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+  }
+
+  .ticker-content {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    color: #000;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-200%); }
+  }
+
+  /* === HEADER === */
+  .site-header {
+    background: linear-gradient(180deg, #1a0033, #0d001a);
+    border-bottom: 4px ridge var(--border-gold);
+    padding: 15px 20px 10px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .site-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.03) 2px,
+      rgba(255,255,255,0.03) 4px
+    );
+    pointer-events: none;
+  }
+
+  .header-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .site-logo {
+    font-family: 'Bungee Shade', cursive;
+    font-size: clamp(28px, 6vw, 64px);
+    background: linear-gradient(180deg, var(--neon-orange), var(--neon-yellow), var(--neon-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px var(--neon-orange)) drop-shadow(0 0 30px rgba(255,102,0,0.4));
+    animation: logoGlow 2s ease-in-out infinite alternate;
+    line-height: 1.1;
+  }
+
+  @keyframes logoGlow {
+    0% { filter: drop-shadow(0 0 10px var(--neon-orange)) drop-shadow(0 0 30px rgba(255,102,0,0.3)); }
+    100% { filter: drop-shadow(0 0 20px var(--neon-yellow)) drop-shadow(0 0 50px rgba(255,255,0,0.5)); }
+  }
+
+  .header-subtitle {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(8px, 1.5vw, 13px);
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan);
+    margin-top: 6px;
+    letter-spacing: 2px;
+  }
+
+  .header-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    color: #fff;
+    font-family: 'Bangers', cursive;
+    font-size: 14px;
+    padding: 4px 12px;
+    border: 2px outset #ff6666;
+    transform: rotate(-3deg);
+    animation: badgePulse 1s ease-in-out infinite alternate;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  @keyframes badgePulse {
+    0% { transform: rotate(-3deg) scale(1); }
+    100% { transform: rotate(-3deg) scale(1.05); }
+  }
+
+  .construction-gif {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    color: var(--neon-yellow);
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* === NAVIGATION === */
+  .main-nav {
+    background: linear-gradient(180deg, #222266, #111144);
+    border-top: 3px ridge var(--neon-cyan);
+    border-bottom: 3px ridge var(--neon-cyan);
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .main-nav a {
+    display: inline-block;
+    padding: 10px 18px;
+    color: var(--neon-green);
+    text-decoration: none;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    border-right: 2px groove #333366;
+    transition: all 0.15s;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  .main-nav a:hover {
+    background: var(--neon-green);
+    color: #000;
+    text-shadow: none;
+  }
+
+  .main-nav a::before {
+    content: '» ';
+  }
+
+  .nav-new {
+    position: absolute;
+    top: 2px; right: 2px;
+    font-size: 7px;
+    color: #fff;
+    background: #ff0000;
+    padding: 1px 4px;
+    animation: blink 0.8s step-end infinite;
+  }
+
+  /* === MAIN LAYOUT === */
+  .page-container {
+    display: grid;
+    grid-template-columns: 180px 1fr 180px;
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+
+  @media (max-width: 900px) {
+    .page-container {
+      grid-template-columns: 1fr;
+    }
+    .sidebar-left, .sidebar-right { display: none; }
+  }
+
+  /* === SIDEBARS === */
+  .sidebar-left, .sidebar-right {
+    background: linear-gradient(180deg, #0d0d2b, #060618);
+    border: 2px ridge #333366;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .sidebar-box {
+    background: linear-gradient(180deg, #1a1a4a, #0d0d2b);
+    border: 2px outset #444488;
+    margin-bottom: 12px;
+    padding: 0;
+  }
+
+  .sidebar-box-title {
+    background: linear-gradient(180deg, #4444aa, #222266);
+    padding: 6px 10px;
+    font-family: 'Bangers', cursive;
+    font-size: 16px;
+    color: var(--neon-yellow);
+    text-shadow: 1px 1px 0 #000;
+    border-bottom: 2px groove #333366;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  .sidebar-box-content {
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .sidebar-box-content a {
+    color: var(--neon-cyan);
+    text-decoration: underline;
+  }
+
+  .visitor-counter {
+    text-align: center;
+    margin-top: 10px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: var(--neon-green);
+  }
+
+  .counter-display {
+    display: inline-block;
+    background: #000;
+    border: 2px inset #444;
+    padding: 4px 8px;
+    margin-top: 4px;
+    font-size: 14px;
+    color: #0f0;
+    font-family: 'VT323', monospace;
+    letter-spacing: 3px;
+  }
+
+  .sidebar-link-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sidebar-link-list li {
+    padding: 3px 0;
+    border-bottom: 1px dotted #333366;
+  }
+
+  .sidebar-link-list li::before {
+    content: '▸ ';
+    color: var(--neon-orange);
+  }
+
+  .sidebar-link-list a {
+    color: var(--neon-cyan);
+    text-decoration: none;
+    font-size: 13px;
+  }
+
+  .sidebar-link-list a:hover {
+    color: var(--neon-yellow);
+    text-decoration: underline;
+  }
+
+  .sidebar-rank-badge {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .rank-img {
+    width: 80px;
+    height: 80px;
+    border: 3px ridge var(--border-gold);
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--neon-orange), #330000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    font-size: 40px;
+    animation: rankSpin 6s linear infinite;
+  }
+
+  @keyframes rankSpin {
+    0%, 100% { transform: rotateY(0deg); }
+    50% { transform: rotateY(180deg); }
+  }
+
+  .online-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--neon-green);
+    margin-bottom: 6px;
+  }
+
+  .online-dot {
+    width: 8px; height: 8px;
+    background: var(--neon-green);
+    border-radius: 50%;
+    animation: dotPulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes dotPulse {
+    0%, 100% { box-shadow: 0 0 4px var(--neon-green); }
+    50% { box-shadow: 0 0 12px var(--neon-green), 0 0 20px var(--neon-green); }
+  }
+
+  /* === MAIN CONTENT === */
+  .main-content {
+    background: linear-gradient(180deg, #0f0f2f, #0a0a1a);
+    padding: 20px;
+    border-left: 2px ridge #333366;
+    border-right: 2px ridge #333366;
+  }
+
+  /* === SECTION HEADERS === */
+  .section-header {
+    background: linear-gradient(90deg, var(--neon-orange), transparent);
+    border-left: 5px solid var(--neon-yellow);
+    padding: 10px 16px;
+    margin: 30px 0 16px;
+    font-family: 'Bangers', cursive;
+    font-size: 32px;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000, 0 0 10px var(--neon-orange);
+    letter-spacing: 2px;
+    position: relative;
+  }
+
+  .section-header:first-child { margin-top: 0; }
+
+  .section-header .tag {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    background: var(--neon-pink);
+    color: #fff;
+    padding: 2px 8px;
+    vertical-align: middle;
+    margin-left: 10px;
+    animation: blink 1.2s step-end infinite;
+  }
+
+  /* === WELCOME BANNER === */
+  .welcome-banner {
+    background: linear-gradient(135deg, #1a0044, #001144, #003311);
+    border: 3px double var(--neon-cyan);
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .welcome-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(0,255,255,0.05), transparent, rgba(255,0,255,0.05), transparent);
+    animation: rotateBg 10s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes rotateBg {
+    100% { transform: rotate(360deg); }
+  }
+
+  .welcome-text {
+    font-family: 'Permanent Marker', cursive;
+    font-size: clamp(20px, 4vw, 36px);
+    color: var(--neon-yellow);
+    text-shadow: 2px 2px 0 var(--neon-orange), 0 0 20px rgba(255,255,0,0.3);
+    position: relative;
+    z-index: 1;
+  }
+
+  .welcome-sub {
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    color: #ccc;
+    margin-top: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .welcome-sub span {
+    color: var(--neon-green);
+    text-shadow: 0 0 8px var(--neon-green);
+  }
+
+  /* === CHARACTER CARDS === */
+  .character-card {
+    background: linear-gradient(135deg, #111140, #0a0a2a);
+    border: 2px outset #555588;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+
+  .character-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.05), transparent);
+    border-bottom: 2px groove #333366;
+  }
+
+  .character-icon {
+    width: 64px;
+    height: 64px;
+    border: 3px ridge var(--border-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    flex-shrink: 0;
+  }
+
+  .character-icon.omen {
+    background: radial-gradient(circle, #4a1a8a, #1a0044);
+    box-shadow: 0 0 15px rgba(138,43,226,0.5);
+  }
+
+  .character-icon.chamber {
+    background: radial-gradient(circle, #8a7a1a, #2a2200);
+    box-shadow: 0 0 15px rgba(218,165,32,0.5);
+  }
+
+  .character-name {
+    font-family: 'Russo One', sans-serif;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .character-name.omen-color {
+    color: #b366ff;
+    text-shadow: 0 0 10px rgba(138,43,226,0.6);
+  }
+
+  .character-name.chamber-color {
+    color: var(--border-gold);
+    text-shadow: 0 0 10px rgba(218,165,32,0.6);
+  }
+
+  .character-role {
+    font-size: 13px;
+    color: #888;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    margin-top: 2px;
+  }
+
+  .character-card-body {
+    padding: 16px;
+  }
+
+  /* === MOVE BOXES === */
+  .move-box {
+    background: rgba(0,0,0,0.4);
+    border: 2px inset #333366;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .move-title {
+    background: linear-gradient(90deg, #cc0000, #660000);
+    padding: 8px 14px;
+    font-family: 'Bangers', cursive;
+    font-size: 22px;
+    color: var(--neon-yellow);
+    text-shadow: 2px 2px 0 #000;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .move-title.purple { background: linear-gradient(90deg, #6600cc, #330066); }
+  .move-title.gold { background: linear-gradient(90deg, #aa8800, #554400); }
+  .move-title.green { background: linear-gradient(90deg, #006600, #003300); }
+
+  .difficulty-stars {
+    font-size: 14px;
+    color: var(--neon-orange);
+  }
+
+  .move-body {
+    padding: 14px;
+    line-height: 1.8;
+  }
+
+  .move-body strong {
+    color: var(--neon-cyan);
+  }
+
+  .move-steps {
+    margin-top: 10px;
+    padding-left: 0;
+    list-style: none;
+    counter-reset: step-counter;
+  }
+
+  .move-steps li {
+    counter-increment: step-counter;
+    padding: 6px 0 6px 36px;
+    position: relative;
+    border-bottom: 1px dotted #222255;
+  }
+
+  .move-steps li::before {
+    content: 'STEP ' counter(step-counter);
+    position: absolute;
+    left: 0;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: var(--neon-orange);
+    top: 10px;
+  }
+
+  .tip-box {
+    background: linear-gradient(135deg, rgba(57,255,20,0.1), rgba(0,255,255,0.05));
+    border: 1px solid var(--neon-green);
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 16px;
+  }
+
+  .tip-box::before {
+    content: '💡 PRO TIP: ';
+    color: var(--neon-green);
+    font-family: 'Bangers', cursive;
+    font-size: 18px;
+  }
+
+  .warning-box {
+    background: linear-gradient(135deg, rgba(255,0,0,0.1), rgba(255,102,0,0.05));
+    border: 1px solid #ff3333;
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 16px;
+  }
+
+  .warning-box::before {
+    content: '⚠️ WARNING: ';
+    color: #ff3333;
+    font-family: 'Bangers', cursive;
+    font-size: 18px;
+  }
+
+  /* === VIDEO SECTION === */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .video-card {
+    background: #000;
+    border: 3px outset #444488;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+  }
+
+  .video-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(0,255,255,0.4), 0 0 40px rgba(255,20,147,0.2);
+  }
+
+  .video-card:hover .video-play-btn {
+    transform: translate(-50%,-50%) scale(1.2);
+    background: rgba(255,0,0,0.95);
+  }
+
+  .video-thumb-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+
+  .video-thumb-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.8) contrast(1.1);
+    transition: filter 0.2s;
+  }
+
+  .video-card:hover .video-thumb-wrap img {
+    filter: brightness(1) contrast(1.1);
+  }
+
+  .video-play-btn {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 56px; height: 40px;
+    background: rgba(255,0,0,0.85);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  }
+
+  .video-play-btn::after {
+    content: '';
+    border-style: solid;
+    border-width: 8px 0 8px 16px;
+    border-color: transparent transparent transparent #fff;
+    margin-left: 3px;
+  }
+
+  .video-card-label {
+    padding: 8px 12px;
+    background: linear-gradient(90deg, #111, #222);
+    font-family: 'Bangers', cursive;
+    font-size: 16px;
+    color: var(--neon-cyan);
+    text-align: center;
+    border-top: 2px groove #333;
+  }
+
+  .video-card-label .yt-icon {
+    color: #ff0000;
+    margin-right: 4px;
+  }
+
+  /* === HIGHLIGHT REEL === */
+  .highlight-section {
+    margin-top: 30px;
+  }
+
+  .highlight-player-card {
+    background: linear-gradient(135deg, #0d0d33, #1a0044);
+    border: 2px outset #555588;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .highlight-player-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.06), transparent);
+    border-bottom: 2px groove #333366;
+    flex-wrap: wrap;
+  }
+
+  .player-avatar {
+    width: 50px;
+    height: 50px;
+    border: 3px ridge var(--neon-pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    background: radial-gradient(circle, #330033, #110011);
+    flex-shrink: 0;
+  }
+
+  .player-info h3 {
+    font-family: 'Russo One', sans-serif;
+    font-size: 20px;
+    color: var(--neon-pink);
+    text-shadow: 0 0 8px rgba(255,20,147,0.4);
+  }
+
+  .player-info .aka {
+    font-family: 'VT323', monospace;
+    font-size: 15px;
+    color: #888;
+  }
+
+  .player-medal-link {
+    margin-left: auto;
+  }
+
+  .medal-btn {
+    display: inline-block;
+    background: linear-gradient(180deg, #ff6600, #cc3300);
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 9px;
+    padding: 8px 14px;
+    text-decoration: none;
+    border: 2px outset #ff8844;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+  }
+
+  .medal-btn:hover {
+    background: linear-gradient(180deg, #ff8800, #ff4400);
+    border-style: inset;
+  }
+
+  .highlight-player-body {
+    padding: 16px;
+  }
+
+  .clips-scroll-container {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .clips-scroll-container::-webkit-scrollbar { height: 8px; }
+  .clips-scroll-container::-webkit-scrollbar-track { background: #111; }
+  .clips-scroll-container::-webkit-scrollbar-thumb { background: var(--neon-pink); }
+
+  .clip-placeholder {
+    min-width: 220px;
+    height: 140px;
+    border: 2px inset #444;
+    background: radial-gradient(ellipse, #1a1a3a, #000);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    flex-shrink: 0;
+  }
+
+  .clip-placeholder:hover {
+    border-color: var(--neon-cyan);
+  }
+
+  .clip-placeholder .play-icon {
+    font-size: 36px;
+    opacity: 0.6;
+  }
+
+  .clip-placeholder .clip-label {
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    color: #888;
+    margin-top: 6px;
+  }
+
+  .medal-clips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+  }
+
+  .medal-clip-card {
+    background: radial-gradient(ellipse, #1a1a3a, #000);
+    border: 2px inset #444;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .medal-clip-card:hover {
+    border-color: var(--neon-cyan);
+    background: radial-gradient(ellipse, #222255, #0a0a2a);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,255,255,0.2);
+  }
+
+  .medal-clip-card .clip-emoji {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+
+  .medal-clip-card .clip-text {
+    font-family: 'VT323', monospace;
+    font-size: 15px;
+    color: var(--neon-cyan);
+    text-align: center;
+  }
+
+  .medal-clip-card .clip-sub {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: #666;
+    margin-top: 6px;
+  }
+
+  .medal-open-btn {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    padding: 12px 20px;
+    background: linear-gradient(180deg, #ff6600, #cc3300);
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
+    text-decoration: none;
+    border: 3px outset #ff8844;
+    transition: all 0.15s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .medal-open-btn:hover {
+    background: linear-gradient(180deg, #ff8800, #ff4400);
+    border-style: inset;
+    box-shadow: 0 0 16px rgba(255,102,0,0.4);
+  }
+
+  .medal-open-btn.green-btn {
+    background: linear-gradient(180deg, var(--neon-green), #006600);
+    border-color: #44cc44;
+  }
+  .medal-open-btn.green-btn:hover {
+    background: linear-gradient(180deg, #44ff44, #009900);
+  }
+
+  .medal-open-btn.cyan-btn {
+    background: linear-gradient(180deg, #00aaaa, #006666);
+    border-color: #44cccc;
+  }
+  .medal-open-btn.cyan-btn:hover {
+    background: linear-gradient(180deg, #00cccc, #008888);
+  }
+
+  /* === POLL RESULTS === */
+  .poll-option {
+    display: block;
+    cursor: pointer;
+    margin: 6px 0;
+    padding: 6px 8px;
+    border: 1px solid #333366;
+    background: rgba(0,0,0,0.3);
+    transition: all 0.15s;
+    position: relative;
+  }
+
+  .poll-option:hover {
+    border-color: var(--neon-cyan);
+    background: rgba(0,255,255,0.05);
+  }
+
+  .poll-option.selected {
+    border-color: var(--neon-green);
+    background: rgba(57,255,20,0.08);
+  }
+
+  .poll-option input { margin-right: 6px; }
+
+  .poll-results-bar {
+    display: none;
+    height: 6px;
+    margin-top: 4px;
+    background: #111;
+    border: 1px inset #222;
+    overflow: hidden;
+  }
+
+  .poll-results-bar-fill {
+    height: 100%;
+    transition: width 1s ease-out;
+    width: 0;
+  }
+
+  .poll-results-pct {
+    display: none;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: var(--neon-green);
+    float: right;
+    margin-top: 2px;
+  }
+
+  .poll-voted .poll-results-bar { display: block; }
+  .poll-voted .poll-results-pct { display: inline; }
+
+  /* === FOOTER === */
+  .site-footer {
+    background: linear-gradient(180deg, #0d0d2b, #000);
+    border-top: 4px ridge var(--border-gold);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+
+  .footer-links a {
+    color: var(--neon-cyan);
+    text-decoration: none;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+  }
+
+  .footer-links a:hover { text-decoration: underline; }
+
+  .footer-badges {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin: 14px 0;
+  }
+
+  .footer-badge {
+    display: inline-block;
+    border: 2px outset #888;
+    padding: 4px 10px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    background: linear-gradient(180deg, #333, #111);
+    color: #aaa;
+  }
+
+  .footer-copy {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+  }
+
+  .footer-disclaimer {
+    font-size: 12px;
+    color: #333;
+    margin-top: 8px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* === FLASHY DIVIDERS === */
+  .divider-flame {
+    height: 24px;
+    background: linear-gradient(90deg,
+      transparent 0%, #ff3300 10%, #ff6600 20%, #ffcc00 30%,
+      #ff6600 40%, #ff3300 50%, #ff6600 60%, #ffcc00 70%,
+      #ff6600 80%, #ff3300 90%, transparent 100%);
+    margin: 20px 0;
+    position: relative;
+    animation: fireShift 2s linear infinite;
+    clip-path: polygon(
+      0% 100%, 3% 40%, 6% 80%, 9% 20%, 12% 70%, 15% 10%, 18% 60%,
+      21% 0%, 24% 50%, 27% 10%, 30% 70%, 33% 20%, 36% 80%, 39% 30%,
+      42% 60%, 45% 0%, 48% 50%, 51% 15%, 54% 70%, 57% 25%, 60% 80%,
+      63% 10%, 66% 60%, 69% 0%, 72% 50%, 75% 20%, 78% 70%, 81% 10%,
+      84% 60%, 87% 0%, 90% 50%, 93% 20%, 96% 70%, 100% 100%
+    );
+  }
+
+  @keyframes fireShift {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(30deg); }
+  }
+
+  .divider-scanline {
+    height: 4px;
+    background: repeating-linear-gradient(90deg, var(--neon-green) 0px, var(--neon-green) 4px, transparent 4px, transparent 8px);
+    margin: 20px 0;
+    animation: scanlineMove 3s linear infinite;
+  }
+
+  @keyframes scanlineMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 80px 0; }
+  }
+
+  /* === MISC DECORATIONS === */
+  .sparkle-text {
+    animation: sparkle 1.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes sparkle {
+    0% { text-shadow: 0 0 5px var(--neon-yellow), 0 0 10px var(--neon-orange); }
+    100% { text-shadow: 0 0 15px var(--neon-yellow), 0 0 30px var(--neon-orange), 0 0 45px var(--neon-pink); }
+  }
+
+  .gif-text-blink {
+    animation: gifBlink 0.5s step-end infinite;
+    font-weight: bold;
+    color: var(--neon-yellow);
+  }
+
+  @keyframes gifBlink {
+    50% { color: var(--neon-pink); }
+  }
+
+  .retro-button {
+    display: inline-block;
+    background: linear-gradient(180deg, #4444cc, #222266);
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    padding: 10px 18px;
+    border: 3px outset #6666ee;
+    cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.1s;
+    margin: 4px;
+  }
+
+  .retro-button:hover {
+    background: linear-gradient(180deg, #6666ee, #4444cc);
+  }
+
+  .retro-button:active {
+    border-style: inset;
+  }
+
+  .retro-button.red {
+    background: linear-gradient(180deg, #cc2222, #661111);
+    border-color: #ee4444;
+  }
+
+  .retro-button.green {
+    background: linear-gradient(180deg, #22aa22, #116611);
+    border-color: #44cc44;
+  }
+
+  .retro-button.orange {
+    background: linear-gradient(180deg, #cc6600, #663300);
+    border-color: #ee8822;
+  }
+
+  .webring-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    background: #000;
+    border: 2px double var(--neon-cyan);
+    font-family: 'VT323', monospace;
+    margin-top: 14px;
+    font-size: 16px;
+    color: var(--neon-cyan);
+  }
+
+  .webring-box a {
+    color: var(--neon-green);
+    text-decoration: none;
+  }
+
+  /* === MUNGLE STATS TABLE === */
+  .stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+  }
+
+  .stats-table th {
+    background: linear-gradient(180deg, #333399, #222266);
+    padding: 8px 12px;
+    text-align: left;
+    border: 1px outset #5555aa;
+    color: var(--neon-yellow);
+    font-family: 'Bangers', cursive;
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  .stats-table td {
+    padding: 6px 12px;
+    border: 1px solid #222255;
+    background: rgba(0,0,0,0.3);
+  }
+
+  .stats-table tr:hover td {
+    background: rgba(57,255,20,0.05);
+  }
+
+  .stat-bar {
+    height: 12px;
+    background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan));
+    display: inline-block;
+    border: 1px outset #44cc44;
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+
+  /* === GUESTBOOK STYLE === */
+  .guestbook-entry {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid #333366;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+  }
+
+  .guestbook-entry .gb-name {
+    color: var(--neon-pink);
+    font-family: 'Bangers', cursive;
+    font-size: 18px;
+  }
+
+  .guestbook-entry .gb-date {
+    color: #555;
+    font-size: 12px;
+    margin-left: 8px;
+  }
+
+  .guestbook-entry .gb-msg {
+    color: #ccc;
+    margin-top: 4px;
+  }
+
+  /* === CHARACTER IMAGES === */
+  .char-img-container {
+    float: right;
+    width: 140px;
+    margin: 0 0 10px 14px;
+    border: 3px ridge var(--border-gold);
+    background: #000;
+    padding: 3px;
+    position: relative;
+  }
+
+  .char-img-container img {
+    width: 100%;
+    display: block;
+    image-rendering: auto;
+  }
+
+  .char-img-label {
+    text-align: center;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    padding: 4px;
+    background: #111;
+    color: var(--neon-cyan);
+  }
+
+  /* === ANIMATED BACKGROUND SHAPES === */
+  .bg-shapes {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .bg-shapes .shape {
+    position: absolute;
+    opacity: 0.03;
+    animation: floatShape 20s ease-in-out infinite;
+  }
+
+  .bg-shapes .shape:nth-child(1) {
+    width: 300px; height: 300px;
+    background: var(--neon-pink);
+    border-radius: 50%;
+    top: 10%; left: -5%;
+    animation-delay: 0s;
+  }
+
+  .bg-shapes .shape:nth-child(2) {
+    width: 200px; height: 200px;
+    background: var(--neon-cyan);
+    top: 60%; right: -3%;
+    animation-delay: -5s;
+  }
+
+  .bg-shapes .shape:nth-child(3) {
+    width: 250px; height: 250px;
+    background: var(--neon-green);
+    border-radius: 50%;
+    bottom: 10%; left: 30%;
+    animation-delay: -10s;
+  }
+
+  @keyframes floatShape {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(30px, -30px) rotate(5deg); }
+    50% { transform: translate(-20px, 20px) rotate(-3deg); }
+    75% { transform: translate(15px, 15px) rotate(2deg); }
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 600px) {
+    .main-content { padding: 12px; }
+    .section-header { font-size: 24px; }
+    .video-grid { grid-template-columns: 1fr; }
+    .character-card-header { flex-direction: column; text-align: center; }
+    .char-img-container { float: none; margin: 10px auto; }
+  }
+
+  /* highlight reel infinite scroll effect */
+  .infinite-reel-label {
+    text-align: center;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    color: var(--neon-pink);
+    padding: 10px;
+    animation: blink 1.5s step-end infinite;
+  }
+
+  /* === CROSSHAIR SECTION === */
+  .crosshair-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  .crosshair-preview {
+    width: 200px;
+    height: 200px;
+    background: #0f1923;
+    border: 3px ridge var(--neon-pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(255,0,255,0.2), inset 0 0 30px rgba(0,0,0,0.5);
+  }
+
+  .crosshair-svg {
+    filter: drop-shadow(0 0 6px #e100ff) drop-shadow(0 0 12px rgba(225,0,255,0.4));
+  }
+
+  .crosshair-preview::before {
+    content: 'IN-GAME PREVIEW';
+    position: absolute;
+    top: 6px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 6px;
+    color: #555;
+    letter-spacing: 1px;
+  }
+
+  .crosshair-info {
+    flex: 1;
+    min-width: 240px;
+  }
+
+  .crosshair-name {
+    font-family: 'Bungee Shade', cursive;
+    font-size: clamp(24px, 4vw, 40px);
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px rgba(255,20,147,0.5);
+    line-height: 1.2;
+  }
+
+  .crosshair-name-sub {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 22px;
+    color: var(--neon-orange);
+    margin-top: 2px;
+  }
+
+  .crosshair-philosophy {
+    background: linear-gradient(135deg, rgba(255,20,147,0.08), rgba(225,0,255,0.05));
+    border: 2px dashed var(--neon-pink);
+    padding: 14px 18px;
+    margin: 16px 0;
+    position: relative;
+  }
+
+  .crosshair-philosophy::before {
+    content: '🧠 THE LOGIC:';
+    display: block;
+    font-family: 'Bangers', cursive;
+    font-size: 20px;
+    color: var(--neon-pink);
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+
+  .crosshair-code-box {
+    background: #000;
+    border: 2px inset #333;
+    padding: 10px 14px;
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    color: var(--neon-green);
+    overflow-x: auto;
+    word-break: break-all;
+    margin-top: 12px;
+    position: relative;
+  }
+
+  .crosshair-code-box::before {
+    content: 'CROSSHAIR CODE:';
+    display: block;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: #666;
+    margin-bottom: 6px;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 8px; right: 8px;
+    background: linear-gradient(180deg, #444, #222);
+    color: var(--neon-cyan);
+    border: 2px outset #666;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .copy-btn:hover {
+    background: linear-gradient(180deg, #666, #444);
+  }
+
+  .copy-btn:active {
+    border-style: inset;
+  }
+
+  /* === HIDDEN LORE SECTION === */
+  .lore-panel {
+    display: none;
+    background: linear-gradient(135deg, #0a0015, #150025, #0a0015);
+    border: 2px double var(--neon-pink);
+    padding: 24px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+    animation: loreReveal 0.6s ease-out;
+  }
+
+  .lore-panel.active { display: block; }
+
+  @keyframes loreReveal {
+    0% { opacity: 0; max-height: 0; padding: 0 24px; }
+    100% { opacity: 1; max-height: 2000px; padding: 24px; }
+  }
+
+  .lore-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(255,20,147,0.02) 3px,
+      rgba(255,20,147,0.02) 6px
+    );
+    pointer-events: none;
+  }
+
+  .lore-title {
+    font-family: 'Bungee Shade', cursive;
+    font-size: 24px;
+    color: var(--neon-pink);
+    text-shadow: 0 0 15px rgba(255,20,147,0.5);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .lore-classified {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: #ff3333;
+    text-align: center;
+    animation: blink 1s step-end infinite;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+  }
+
+  .lore-entry {
+    margin-bottom: 18px;
+    padding-left: 14px;
+    border-left: 3px solid rgba(255,20,147,0.3);
+  }
+
+  .lore-entry h4 {
+    font-family: 'Russo One', sans-serif;
+    font-size: 18px;
+    color: var(--neon-cyan);
+    margin-bottom: 4px;
+  }
+
+  .lore-entry p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #bbb;
+  }
+
+  .lore-entry .lore-quote {
+    display: block;
+    margin-top: 8px;
+    padding: 8px 14px;
+    background: rgba(0,0,0,0.4);
+    border-left: 3px solid var(--neon-orange);
+    font-style: italic;
+    color: var(--neon-yellow);
+    font-size: 17px;
+  }
+
+  /* === ORANGE & RED STATUS DOTS === */
+  .online-dot.orange {
+    background: var(--neon-orange);
+    animation: dotPulseOrange 1.5s ease-in-out infinite;
+  }
+
+  @keyframes dotPulseOrange {
+    0%, 100% { box-shadow: 0 0 4px var(--neon-orange); }
+    50% { box-shadow: 0 0 12px var(--neon-orange), 0 0 20px var(--neon-orange); }
+  }
+
+  .online-status.orange-status {
+    color: var(--neon-orange);
+  }
+
+  .online-dot.red {
+    background: #ff3333;
+    animation: dotPulseRed 1.5s ease-in-out infinite;
+  }
+
+  @keyframes dotPulseRed {
+    0%, 100% { box-shadow: 0 0 4px #ff3333; }
+    50% { box-shadow: 0 0 12px #ff3333, 0 0 20px #ff3333; }
+  }
+
+  .online-status.red-status {
+    color: #ff3333;
+  }
+
+  .status-label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 6px;
+    padding: 1px 4px;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+
+  .status-label.valorange {
+    background: #ff3333;
+    color: #fff;
+  }
+
+  /* === LORE TRIGGER GLINT === */
+  .lore-trigger {
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  .lore-trigger::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,20,147,0.4), rgba(255,255,255,0.6), rgba(255,20,147,0.4), transparent);
+    animation: loreGlint 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes loreGlint {
+    0%, 70%, 100% { left: -100%; opacity: 0; }
+    75% { opacity: 1; }
+    85% { left: 200%; opacity: 1; }
+    86% { opacity: 0; }
+  }
+
+  .lore-trigger:hover {
+    text-shadow: 0 0 8px var(--neon-pink);
+  }
+
+  /* === MUTE BUTTON === */
+  .mute-btn {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    z-index: 9999;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #222266, #111144);
+    border: 3px outset #4444aa;
+    color: var(--neon-cyan);
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  }
+
+  .mute-btn:hover {
+    background: linear-gradient(135deg, #333399, #222266);
+    transform: scale(1.1);
+    box-shadow: 0 0 16px rgba(0,255,255,0.3);
+  }
+
+  .mute-btn:active { border-style: inset; }
+
+  .mute-btn.muted {
+    background: linear-gradient(135deg, #661111, #331111);
+    border-color: #aa3333;
+    color: #ff3333;
+  }
+
+  /* === MUSIC BANNER === */
+  .music-banner {
+    position: fixed;
+    bottom: 70px;
+    right: 16px;
+    z-index: 9998;
+    background: linear-gradient(135deg, #111133, #0a0a22);
+    border: 2px outset #333366;
+    padding: 8px 12px;
+    font-family: 'VT323', monospace;
+    font-size: 13px;
+    color: var(--neon-green);
+    max-width: 200px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+
+  .music-banner.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .music-banner .song-title {
+    color: var(--neon-cyan);
+    font-size: 14px;
+  }
+
+  .music-banner .now-playing {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: #666;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+  }
+
+  /* === PIXEL ART === */
+  .pixel-art-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 40px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .pixel-char {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
+  .pixel-char-label {
+    text-align: center;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    margin-top: 6px;
+    letter-spacing: 1px;
+  }
+
+  .pixel-float {
+    animation: pixelFloat 3s ease-in-out infinite;
+  }
+
+  .pixel-float-delay {
+    animation: pixelFloat 3s ease-in-out infinite;
+    animation-delay: -1.5s;
+  }
+
+  @keyframes pixelFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* === CLICK RIPPLE === */
+  .click-ripple {
+    position: fixed;
+    width: 20px; height: 20px;
+    border: 2px solid var(--neon-cyan);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    animation: rippleOut 0.4s ease-out forwards;
+  }
+
+  @keyframes rippleOut {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Background shapes -->
+<div class="bg-shapes">
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+
+<!-- TOP TICKER -->
+<div class="ticker-wrap">
+  <span class="ticker-content">
+    ★★★ WELCOME TO MUNGLESGUIDE.COM ★★★ THE #1 VALORANT GUIDE ON THE ENTIRE INTERNET ★★★ LEARN THE DOCTOR FREEZE ★★★ MASTER THE MUNG PEEK ★★★ FEATURING HIGHLIGHT REELS FROM MUNGLE, GUN & JOHN PORK ★★★ NEW GUIDES ADDED REGULARLY ★★★ YOU ARE VISITOR #48,291 ★★★ SITE BEST VIEWED IN 1024x768 ★★★
+  </span>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-top-row">
+    <div>
+      <div class="site-logo">MunglesGuide</div>
+      <div style="font-family:'VT323',monospace;font-size:20px;color:var(--neon-orange);margin-top:2px;">.com</div>
+    </div>
+  </div>
+  <div class="header-subtitle">THE ULTIMATE VALORANT GUIDE &bull; EST. 2024 &bull; FEAR THE MUNGLE</div>
+  <div class="header-badge">🏆 #1 RATED VALORANT GUIDE WORLDWIDE 🏆</div>
+  <div class="construction-gif">
+    🚧 SITE ALWAYS UNDER CONSTRUCTION — MORE GUIDES COMING SOON 🚧
+  </div>
+</header>
+
+<!-- NAVIGATION -->
+<nav class="main-nav">
+  <a href="#home">Home</a>
+  <a href="#omen-guide">Omen Guide</a>
+  <a href="#chamber-guide">Chamber Guide</a>
+  <a href="#moves">Signature Moves</a>
+  <a href="#crosshair">Crosshair <span class="nav-new">NEW!</span></a>
+  <a href="#tutorials">Tutorials <span class="nav-new">NEW!</span></a>
+  <a href="#highlights">Highlights <span class="nav-new">HOT!</span></a>
+  <a href="#guestbook">Guestbook</a>
+</nav>
+
+<!-- MAIN LAYOUT -->
+<div class="page-container">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar-left">
+    <div class="sidebar-box">
+      <div class="sidebar-box-title">👤 MUNGLE STATS</div>
+      <div class="sidebar-box-content">
+        <div class="sidebar-rank-badge">
+          <div class="rank-img">👑</div>
+          <div style="font-family:'Bangers',cursive;font-size:18px;color:var(--neon-yellow);">LEGEND</div>
+        </div>
+        <div style="font-size:13px;line-height:1.8;">
+          <strong style="color:var(--neon-cyan);">Main:</strong> Omen<br>
+          <strong style="color:var(--neon-cyan);">Alt:</strong> Chamber<br>
+          <strong style="color:var(--neon-cyan);">Moves:</strong> 2 Patented<br>
+          <strong style="color:var(--neon-cyan);">Status:</strong><br>
+          <span style="color:var(--neon-green);">Active ✓</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-box">
+      <div class="sidebar-box-title">🔗 QUICK LINKS</div>
+      <div class="sidebar-box-content">
+        <ul class="sidebar-link-list">
+          <li><a href="#omen-guide">Omen Guide</a></li>
+          <li><a href="#chamber-guide">Chamber Guide</a></li>
+          <li><a href="#doctor-freeze">Doctor Freeze</a></li>
+          <li><a href="#mung-peek">Mung Peek</a></li>
+          <li><a href="#crosshair">BIG BERTHA</a></li>
+          <li><a href="#tutorials">Video Tutorials</a></li>
+          <li><a href="#highlights">Highlight Reels</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sidebar-box">
+      <div class="sidebar-box-title">📊 POLL</div>
+      <div class="sidebar-box-content" style="font-size:14px;">
+        <strong style="color:var(--neon-yellow);">Best Mungle Move?</strong><br><br>
+        <div id="pollContainer">
+          <label class="poll-option"><input type="radio" name="poll" value="freeze"> 🥶 Doctor Freeze
+            <span class="poll-results-pct" data-pct="42">42%</span>
+            <div class="poll-results-bar"><div class="poll-results-bar-fill" style="background:linear-gradient(90deg,var(--neon-pink),var(--neon-cyan));" data-width="42%"></div></div>
+          </label>
+          <label class="poll-option"><input type="radio" name="poll" value="peek"> 👀 Mung Peek
+            <span class="poll-results-pct" data-pct="21">21%</span>
+            <div class="poll-results-bar"><div class="poll-results-bar-fill" style="background:linear-gradient(90deg,var(--neon-green),var(--neon-cyan));" data-width="21%"></div></div>
+          </label>
+          <label class="poll-option"><input type="radio" name="poll" value="both"> 🔥 Both are goated
+            <span class="poll-results-pct" data-pct="37">37%</span>
+            <div class="poll-results-bar"><div class="poll-results-bar-fill" style="background:linear-gradient(90deg,var(--neon-orange),var(--neon-yellow));" data-width="37%"></div></div>
+          </label>
+        </div>
+        <div style="font-family:'Press Start 2P',monospace;font-size:7px;color:#555;margin-top:8px;" id="pollVoteCount">1,247 votes</div>
+        <br>
+        <button class="retro-button" style="font-size:8px;padding:6px 12px;" id="pollVoteBtn" onclick="castVote()">VOTE</button>
+      </div>
+    </div>
+
+    <div class="visitor-counter">
+      VISITORS:<br>
+      <div class="counter-display" id="visitorCount">048291</div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content" id="home">
+
+    <!-- WELCOME -->
+    <div class="welcome-banner">
+      <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;">
+        <!-- PIXEL ART OMEN -->
+        <div class="pixel-float">
+          <img src="omen-pixel.png" alt="Omen Pixel Art" class="pixel-char" width="80" height="80" style="image-rendering:pixelated;">
+          <div class="pixel-char-label" style="color:#b366ff;">OMEN</div>
+        </div>
+
+        <div>
+          <div class="welcome-text">Welcome to the MUNGLE Zone 🎯</div>
+          <div class="welcome-sub">
+            Home of the <span>Doctor Freeze</span> &amp; the <span>Mung Peek</span>
+          </div>
+          <div style="margin-top:12px;">
+            <a href="#omen-guide" class="retro-button orange sfx-btn">OMEN GUIDE</a>
+            <a href="#chamber-guide" class="retro-button red sfx-btn">CHAMBER GUIDE</a>
+            <a href="#highlights" class="retro-button green sfx-btn">HIGHLIGHTS</a>
+          </div>
+        </div>
+
+        <!-- PIXEL ART CHAMBER -->
+        <div class="pixel-float-delay">
+          <img src="chamber-pixel.png" alt="Chamber Pixel Art" class="pixel-char" width="80" height="80" style="image-rendering:pixelated;">
+          <div class="pixel-char-label" style="color:var(--border-gold);">CHAMBER</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-flame"></div>
+
+    <!-- ====== SIGNATURE MOVES ====== -->
+    <div class="section-header" id="moves">⚡ SIGNATURE MOVES <span class="tag">PATENTED</span></div>
+
+    <!-- DOCTOR FREEZE -->
+    <div class="move-box" id="doctor-freeze">
+      <div class="move-title purple">
+        🥶 THE DOCTOR FREEZE
+        <span class="difficulty-stars">★★★★☆</span>
+      </div>
+      <div class="move-body">
+        <strong>Agent:</strong> OMEN &nbsp;|&nbsp; <strong>Type:</strong> Teleport Assassination &nbsp;|&nbsp; <strong>Discovered by:</strong> Mungle
+        <br><br>
+        The <span class="sparkle-text" style="color:var(--neon-cyan);">Doctor Freeze</span> is a devastating Omen technique where you teleport directly behind an unsuspecting enemy and eliminate them before they can react. Named for the way your target freezes in confusion as they realise death came from behind.
+        <br><br>
+        <strong>How it's done:</strong>
+        <ol class="move-steps">
+          <li>Identify an enemy holding an angle or peeking a sightline — they need to be focused on something ahead of them</li>
+          <li>Use Omen's <strong style="color:#b366ff;">Shrouded Step</strong> (or <strong style="color:#b366ff;">From the Shadows</strong> ult for maximum disrespect) to teleport directly behind them</li>
+          <li>While materialising, line up your crosshair on their back — they won't hear you in time</li>
+          <li>One tap them from behind. They're frozen. They're finished. They're Doctor Freeze'd. 🥶</li>
+        </ol>
+        <div class="tip-box">The Doctor Freeze works best when the enemy is scoped in or distracted by a teammate's push. The more focused they are, the more free the kill is.</div>
+        <div class="warning-box">Attempting the Doctor Freeze against a Cypher with trapwires behind them WILL get you caught. Check your corners before you TP.</div>
+      </div>
+    </div>
+
+    <!-- MUNG PEEK -->
+    <div class="move-box" id="mung-peek">
+      <div class="move-title green">
+        👀 THE MUNG PEEK
+        <span class="difficulty-stars">★★★☆☆</span>
+      </div>
+      <div class="move-body">
+        <strong>Agent:</strong> ANY &nbsp;|&nbsp; <strong>Type:</strong> Jiggle Bait &nbsp;|&nbsp; <strong>Discovered by:</strong> Mungle
+        <br><br>
+        The <span class="sparkle-text" style="color:var(--neon-green);">Mung Peek</span> is a universal technique where you jiggle your character model on a corner to bait the enemy into thinking you're about to peek — but you never actually commit. They shoot, they whiff, they overcommit... and then you punish.
+        <br><br>
+        <strong>How it's done:</strong>
+        <ol class="move-steps">
+          <li>Position yourself on a corner where an enemy is likely holding an angle</li>
+          <li>Rapidly tap your strafe key to jiggle your character model just barely past the edge — just enough for them to see a pixel of you</li>
+          <li>IMMEDIATELY pull back. DO NOT commit to the peek. This is the crucial part — you are BAITING, not peeking.</li>
+          <li>The enemy panics and fires, revealing their position. Now you know exactly where they are. Re-peek and delete them, or rotate and call it out.</li>
+        </ol>
+        <div class="tip-box">The Mung Peek is extra effective at lower ranks where players have itchy trigger fingers. At higher ranks, combine it with a flash or smoke for maximum bamboozle.</div>
+      </div>
+    </div>
+
+    <div class="divider-scanline"></div>
+
+    <!-- ====== OMEN GUIDE ====== -->
+    <div class="section-header" id="omen-guide">👻 THE OMEN GUIDE <span class="tag">ESSENTIAL</span></div>
+
+    <div class="character-card">
+      <div class="character-card-header">
+        <div class="character-icon omen">
+          <img src="omen-pixel.png" alt="Omen" width="50" height="50" style="image-rendering:pixelated;object-fit:contain;">
+        </div>
+        <div>
+          <div class="character-name omen-color">OMEN</div>
+          <div class="character-role">CONTROLLER // SHADOW HUNTER</div>
+        </div>
+      </div>
+      <div class="character-card-body">
+        <p style="font-size:20px;line-height:1.8;margin-bottom:16px;">
+          Omen is the <strong style="color:#b366ff;">teleport king</strong> of Valorant, and if you want to play like Mungle, you need to understand one fundamental truth:
+        </p>
+
+        <div style="text-align:center;font-family:'Permanent Marker',cursive;font-size:28px;color:var(--neon-yellow);padding:16px;border:2px dashed var(--neon-yellow);margin:16px 0;text-shadow:0 0 10px rgba(255,255,0,0.3);">
+          TELEPORT. CONSTANTLY. ALWAYS BE TELEPORTING.
+        </div>
+
+        <p style="line-height:1.8;margin-bottom:14px;">
+          The #1 mistake new Omen players make is using their abilities "safely." Forget safe. Mungle Omen is about <strong style="color:var(--neon-cyan);">chaos</strong>. Your Shrouded Step isn't a repositioning tool — it's a weapon. Your ult isn't for flanking once a half — it's for psychological warfare.
+        </p>
+
+        <div class="move-box" style="margin-top:16px;">
+          <div class="move-title purple">MUNGLE'S OMEN COMMANDMENTS</div>
+          <div class="move-body">
+            <ol class="move-steps">
+              <li><strong>Shrouded Step aggressively.</strong> Behind the enemy, on top of boxes, onto elevated positions mid-fight. If you're not teleporting at least 3-4 times a half, you're playing Omen wrong.</li>
+              <li><strong>Smoke for yourself, not just the team.</strong> Throw a smoke, then TP INSIDE the smoke. Now you're invisible AND repositioned. The enemy has no idea where you went.</li>
+              <li><strong>Use the paranoia.</strong> The Dark Cover (smoke) + Paranoia (blind) + Shrouded Step combo is the holy trinity. Blind them, smoke it, TP behind, and Doctor Freeze.</li>
+              <li><strong>Your ult is a mind game.</strong> Sometimes you ult just to cancel it — making the enemy rotate for nothing. Sometimes you ult into their spawn just to assert dominance. There are no rules.</li>
+              <li><strong>Always. Be. Teleporting.</strong> The moment you stop moving, you become predictable. Predictable Omens are dead Omens. Mungle Omens are ghosts.</li>
+            </ol>
+          </div>
+        </div>
+
+        <table class="stats-table" style="margin-top:16px;">
+          <thead>
+            <tr>
+              <th>Ability</th>
+              <th>Mungle Usage</th>
+              <th>Aggression Level</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--neon-cyan);">Shrouded Step</td>
+              <td>Teleport behind enemies constantly</td>
+              <td><div class="stat-bar" style="width:95%;"></div> 95%</td>
+            </tr>
+            <tr>
+              <td style="color:var(--neon-cyan);">Dark Cover</td>
+              <td>Smoke + TP combo / self-smoke</td>
+              <td><div class="stat-bar" style="width:80%;"></div> 80%</td>
+            </tr>
+            <tr>
+              <td style="color:var(--neon-cyan);">Paranoia</td>
+              <td>Blind before every Doctor Freeze</td>
+              <td><div class="stat-bar" style="width:85%;"></div> 85%</td>
+            </tr>
+            <tr>
+              <td style="color:var(--neon-cyan);">From the Shadows</td>
+              <td>Maximum disrespect plays</td>
+              <td><div class="stat-bar" style="width:100%;background:linear-gradient(90deg,var(--neon-orange),var(--neon-pink));"></div> MAX</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="divider-flame"></div>
+
+    <!-- ====== CHAMBER GUIDE ====== -->
+    <div class="section-header" id="chamber-guide">🎩 THE CHAMBER GUIDE <span class="tag">SIMPLE</span></div>
+
+    <div class="character-card">
+      <div class="character-card-header">
+        <div class="character-icon chamber">
+          <img src="chamber-pixel.png" alt="Chamber" width="50" height="50" style="image-rendering:pixelated;object-fit:contain;">
+        </div>
+        <div>
+          <div class="character-name chamber-color">CHAMBER</div>
+          <div class="character-role">SENTINEL // FRENCH MARKSMAN</div>
+        </div>
+      </div>
+      <div class="character-card-body">
+        <p style="font-size:20px;line-height:1.8;margin-bottom:16px;">
+          Right, you want a Chamber guide? Here's the thing about Chamber:
+        </p>
+
+        <div style="text-align:center;font-family:'Permanent Marker',cursive;font-size:34px;color:var(--border-gold);padding:20px;border:3px double var(--border-gold);margin:20px 0;text-shadow:0 0 10px rgba(218,165,32,0.4);background:rgba(218,165,32,0.05);">
+          SHOOT THE ENEMY.
+        </div>
+
+        <p style="line-height:1.8;margin-bottom:14px;">
+          That's it. That's the guide. Chamber is a point-and-click adventure game. You have a gun (Headhunter), an even bigger gun (Tour de Force), a teleport anchor to escape when things go bad, and a slow trap to help you hold sites.
+        </p>
+
+        <p style="line-height:1.8;margin-bottom:14px;">
+          But the core of Chamber? <strong style="color:var(--border-gold);">Aim.</strong> If you can aim, you're a good Chamber. If you can't aim, play someone else. Preferably Omen so you can do Doctor Freezes instead.
+        </p>
+
+        <div class="move-box" style="margin-top:16px;">
+          <div class="move-title gold">MUNGLE'S CHAMBER COMMANDMENTS</div>
+          <div class="move-body">
+            <ol class="move-steps">
+              <li><strong>Headhunter = Sheriff but better.</strong> Use it like a Sheriff. Aim for the head. If you hit the head, they die. Revolutionary stuff.</li>
+              <li><strong>Tour de Force = free Operator.</strong> Get kills with the ult. Every kill makes a slow field. More kills = more slow fields. It's not complicated.</li>
+              <li><strong>Place your teleport anchor.</strong> Stand somewhere aggressive, place your TP behind cover. Get a pick, TP out. Repeat until the enemy team surrenders.</li>
+              <li><strong>Trademark (trap) on flank.</strong> Put it where people sneak through. When it goes off, shoot the person. Simple.</li>
+              <li><strong>Literally just click on their heads.</strong> That's it. That's the guide. Go practice your aim.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="tip-box">Chamber's entire kit rewards mechanical skill. If you want a shortcut, there isn't one. Go to the range, practice headshots, and come back when you can one-tap.</div>
+
+        <table class="stats-table" style="margin-top:16px;">
+          <thead>
+            <tr>
+              <th>Ability</th>
+              <th>Mungle Usage</th>
+              <th>Complexity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--border-gold);">Headhunter</td>
+              <td>Click on head → enemy dies</td>
+              <td>aim diff</td>
+            </tr>
+            <tr>
+              <td style="color:var(--border-gold);">Rendezvous</td>
+              <td>TP out after getting a pick</td>
+              <td>place it down</td>
+            </tr>
+            <tr>
+              <td style="color:var(--border-gold);">Trademark</td>
+              <td>Put on flank → forget about it</td>
+              <td>braindead easy</td>
+            </tr>
+            <tr>
+              <td style="color:var(--border-gold);">Tour de Force</td>
+              <td>Big gun go boom</td>
+              <td>aim diff x2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="divider-scanline"></div>
+
+    <!-- ====== CROSSHAIR SETTINGS ====== -->
+    <div class="section-header" id="crosshair">🎯 CROSSHAIR SETTINGS <span class="tag">META</span></div>
+
+    <p style="line-height:1.8;margin-bottom:8px;">
+      You want to aim better? Forget those tiny little dot crosshairs the pros use. Mungle has perfected the ultimate crosshair — and the science behind it is <strong style="color:var(--neon-pink);">undeniable</strong>.
+    </p>
+
+    <div class="crosshair-display">
+      <div class="crosshair-preview">
+        <svg class="crosshair-svg" width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Center dot -->
+          <rect x="54" y="54" width="12" height="12" fill="#e100ff" opacity="0.9"/>
+          <!-- Top arm -->
+          <rect x="42" y="4" width="36" height="42" rx="1" fill="#e100ff"/>
+          <rect x="48" y="10" width="10" height="14" rx="1" fill="#e100ff" opacity="0.8"/>
+          <rect x="62" y="10" width="10" height="14" rx="1" fill="#e100ff" opacity="0.8"/>
+          <!-- Bottom arm -->
+          <rect x="42" y="74" width="36" height="42" rx="1" fill="#e100ff"/>
+          <rect x="48" y="82" width="10" height="14" rx="1" fill="#e100ff" opacity="0.8"/>
+          <rect x="62" y="82" width="10" height="14" rx="1" fill="#e100ff" opacity="0.8"/>
+          <!-- Left arm -->
+          <rect x="4" y="42" width="42" height="36" rx="1" fill="#e100ff"/>
+          <rect x="10" y="48" width="14" height="10" rx="1" fill="#e100ff" opacity="0.8"/>
+          <rect x="10" y="62" width="14" height="10" rx="1" fill="#e100ff" opacity="0.8"/>
+          <!-- Right arm -->
+          <rect x="74" y="42" width="42" height="36" rx="1" fill="#e100ff"/>
+          <rect x="96" y="48" width="14" height="10" rx="1" fill="#e100ff" opacity="0.8"/>
+          <rect x="96" y="62" width="14" height="10" rx="1" fill="#e100ff" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="crosshair-info">
+        <div class="crosshair-name">"PHAT"</div>
+        <div class="crosshair-name-sub">AKA "BIG BERTHA" 🫡</div>
+
+        <div class="crosshair-philosophy">
+          If you are missing your shots, there's really only one explanation: <strong style="color:var(--neon-yellow);">you can't see your crosshair.</strong> Think about it. You're in a firefight, muzzle flashes everywhere, smokes going off, your screen is shaking — and you're supposed to track a little 2-pixel dot? <strong style="color:var(--neon-pink);">NAH.</strong>
+          <br><br>
+          The solution is simple. <strong style="color:var(--neon-cyan);">Make it BIGGER.</strong> Make it so big you can NEVER lose it. If your crosshair takes up a significant portion of the screen, you will ALWAYS know exactly where your bullets are going. That's just facts. That's just science. That's <span class="sparkle-text" style="color:var(--neon-pink);">BIG BERTHA</span>.
+        </div>
+
+        <div class="crosshair-code-box">
+          <button class="copy-btn" onclick="copyCrosshair()">COPY</button>
+          0;P;c;8;u;E100FFFF;t;6;o;1;d;1;b;1;z;6;a;0;f;0;m;1;0t;10;0l;20;0o;20;0a;1;0m;1;0e;0.1;1t;10;1l;10;1o;40;1a;1;1m;0
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+          <a href="https://www.vcrdb.net/builder?c=0;P;c;8;u;E100FFFF;t;6;o;1;d;1;b;1;z;6;a;0;f;0;m;1;0t;10;0l;20;0o;20;0a;1;0m;1;0e;0.1;1t;10;1l;10;1o;40;1a;1;1m;0" target="_blank" class="retro-button" style="font-size:9px;">🔧 VIEW IN BUILDER</a>
+          <a href="#crosshair" class="retro-button red" style="font-size:9px;">📋 IMPORT CODE</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="move-box" style="margin-top:16px;">
+      <div class="move-title" style="background:linear-gradient(90deg,#cc00cc,#660066);">
+        📊 BIG BERTHA SPECS
+        <span class="difficulty-stars">★★★★★</span>
+      </div>
+      <div class="move-body">
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th>Setting</th>
+              <th>Value</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--neon-pink);">Colour</td>
+              <td>#E100FF (Purple/Pink)</td>
+              <td>Visible on literally everything</td>
+            </tr>
+            <tr>
+              <td style="color:var(--neon-pink);">Inner Lines</td>
+              <td>Thickness 10 / Length 20 / Offset 20</td>
+              <td>PHAT inner for close range tracking</td>
+            </tr>
+            <tr>
+              <td style="color:var(--neon-pink);">Outer Lines</td>
+              <td>Thickness 10 / Length 10 / Offset 40</td>
+              <td>Extra GIRTH for long range awareness</td>
+            </tr>
+            <tr>
+              <td style="color:var(--neon-pink);">Center Dot</td>
+              <td>OFF</td>
+              <td>You don't need a dot when the whole crosshair IS the dot</td>
+            </tr>
+            <tr>
+              <td style="color:var(--neon-pink);">Outlines</td>
+              <td>ON (Opacity 1)</td>
+              <td>Even MORE visibility. Can't miss what you can't lose.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="warning-box">Your teammates WILL make fun of you. Your enemies WILL be confused. But you WILL see your crosshair. And that's what matters.</div>
+      </div>
+    </div>
+
+    <div class="divider-flame"></div>
+
+    <!-- ====== TUTORIALS ====== -->
+    <div class="section-header" id="tutorials">🎬 VIDEO TUTORIALS <span class="tag">WATCH NOW</span></div>
+
+    <p style="margin-bottom:14px;line-height:1.8;">
+      Watch Mungle in action. Study the techniques. Learn the moves. Each clip is a masterclass in Valorant gameplay. <span class="gif-text-blink">CLICK TO PLAY!</span>
+    </p>
+
+    <div class="video-grid">
+      <a class="video-card" href="https://youtu.be/sd_MIHdd0Pw" target="_blank" rel="noopener">
+        <div class="video-thumb-wrap">
+          <img src="https://img.youtube.com/vi/sd_MIHdd0Pw/hqdefault.jpg" alt="Tutorial 1" loading="lazy">
+          <div class="video-play-btn"></div>
+        </div>
+        <div class="video-card-label"><span class="yt-icon">▶</span> Tutorial #1</div>
+      </a>
+      <a class="video-card" href="https://youtu.be/0_ICv-csmAI" target="_blank" rel="noopener">
+        <div class="video-thumb-wrap">
+          <img src="https://img.youtube.com/vi/0_ICv-csmAI/hqdefault.jpg" alt="Tutorial 2" loading="lazy">
+          <div class="video-play-btn"></div>
+        </div>
+        <div class="video-card-label"><span class="yt-icon">▶</span> Tutorial #2</div>
+      </a>
+      <a class="video-card" href="https://youtu.be/W03KN18y9p4" target="_blank" rel="noopener">
+        <div class="video-thumb-wrap">
+          <img src="https://img.youtube.com/vi/W03KN18y9p4/hqdefault.jpg" alt="Tutorial 3" loading="lazy">
+          <div class="video-play-btn"></div>
+        </div>
+        <div class="video-card-label"><span class="yt-icon">▶</span> Tutorial #3</div>
+      </a>
+      <a class="video-card" href="https://youtu.be/pjFbT0uSoyQ" target="_blank" rel="noopener">
+        <div class="video-thumb-wrap">
+          <img src="https://img.youtube.com/vi/pjFbT0uSoyQ/hqdefault.jpg" alt="Tutorial 4" loading="lazy">
+          <div class="video-play-btn"></div>
+        </div>
+        <div class="video-card-label"><span class="yt-icon">▶</span> Tutorial #4</div>
+      </a>
+      <a class="video-card" href="https://youtu.be/iVgXjdlCitQ" target="_blank" rel="noopener">
+        <div class="video-thumb-wrap">
+          <img src="https://img.youtube.com/vi/iVgXjdlCitQ/hqdefault.jpg" alt="Tutorial 5" loading="lazy">
+          <div class="video-play-btn"></div>
+        </div>
+        <div class="video-card-label"><span class="yt-icon">▶</span> Tutorial #5</div>
+      </a>
+      <a class="video-card" href="https://youtu.be/ep3ZRRB21Ps" target="_blank" rel="noopener">
+        <div class="video-thumb-wrap">
+          <img src="https://img.youtube.com/vi/ep3ZRRB21Ps/hqdefault.jpg" alt="Tutorial 6" loading="lazy">
+          <div class="video-play-btn"></div>
+        </div>
+        <div class="video-card-label"><span class="yt-icon">▶</span> Tutorial #6</div>
+      </a>
+    </div>
+
+    <div class="divider-flame"></div>
+
+    <!-- ====== HIGHLIGHT REELS ====== -->
+    <div class="section-header" id="highlights">🏆 INFINITE HIGHLIGHT REEL <span class="tag">CLIPS</span></div>
+
+    <p style="margin-bottom:14px;line-height:1.8;">
+      Witness the greatest Valorant plays from the squad. Clips powered by <strong style="color:var(--neon-orange);">Medal.tv</strong>. Click through to each player's profile for the infinite clip experience.
+    </p>
+
+    <!-- MUNGLE -->
+    <div class="highlight-player-card">
+      <div class="highlight-player-header">
+        <div class="player-avatar">👑</div>
+        <div class="player-info">
+          <h3>MUNGLE</h3>
+          <div class="aka">AKA "Tim Cheese" // DatFatGuy99</div>
+        </div>
+        <div class="player-medal-link">
+          <a href="https://medal.tv/u/DatFatGuy99/?invite=ur-MSxmZzIsMTg5MTg1MDA0" target="_blank" class="medal-btn">🏅 View All Clips →</a>
+        </div>
+      </div>
+      <div class="highlight-player-body">
+        <p style="margin-bottom:12px;color:var(--neon-yellow);font-family:'Permanent Marker',cursive;font-size:18px;">The man, the myth, the Mungle. Doctor Freeze specialist. Omen main. Legend.</p>
+        <div class="medal-clips-grid">
+          <a class="medal-clip-card" href="https://medal.tv/u/DatFatGuy99/?invite=ur-MSxmZzIsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">🥶</div>
+            <div class="clip-text">Doctor Freeze Montage</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+          <a class="medal-clip-card" href="https://medal.tv/u/DatFatGuy99/?invite=ur-MSxmZzIsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">👻</div>
+            <div class="clip-text">Omen Teleport Plays</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+          <a class="medal-clip-card" href="https://medal.tv/u/DatFatGuy99/?invite=ur-MSxmZzIsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">🎯</div>
+            <div class="clip-text">Ace Highlights</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+          <a class="medal-clip-card" href="https://medal.tv/u/DatFatGuy99/?invite=ur-MSxmZzIsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">💀</div>
+            <div class="clip-text">Clutch or Kick</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+        </div>
+        <a href="https://medal.tv/u/DatFatGuy99/?invite=ur-MSxmZzIsMTg5MTg1MDA0" target="_blank" class="medal-open-btn">🏅 OPEN FULL MEDAL PROFILE — INFINITE CLIPS →</a>
+        <div class="infinite-reel-label">↑ CLICK FOR THE INFINITE REEL ↑</div>
+      </div>
+    </div>
+
+    <!-- GUN -->
+    <div class="highlight-player-card">
+      <div class="highlight-player-header">
+        <div class="player-avatar" style="border-color:var(--neon-green);">🔫</div>
+        <div class="player-info">
+          <h3 style="color:var(--neon-green);text-shadow:0 0 8px rgba(57,255,20,0.4);">GUN</h3>
+          <div class="aka">AKA "AK" // gun_ak</div>
+        </div>
+        <div class="player-medal-link">
+          <a href="https://medal.tv/u/gun_ak/?invite=ur-MSxLVEMsMTg5MTg1MDA0" target="_blank" class="medal-btn" style="background:linear-gradient(180deg,var(--neon-green),#006600);border-color:#44cc44;">🏅 View All Clips →</a>
+        </div>
+      </div>
+      <div class="highlight-player-body">
+        <p style="margin-bottom:12px;color:var(--neon-green);font-family:'Permanent Marker',cursive;font-size:18px;">The AK himself. Pure mechanical talent.</p>
+        <div class="medal-clips-grid">
+          <a class="medal-clip-card" href="https://medal.tv/u/gun_ak/?invite=ur-MSxLVEMsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">🔫</div>
+            <div class="clip-text">AK Aim Diff Clips</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+          <a class="medal-clip-card" href="https://medal.tv/u/gun_ak/?invite=ur-MSxLVEMsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">💥</div>
+            <div class="clip-text">One Tap Compilation</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+          <a class="medal-clip-card" href="https://medal.tv/u/gun_ak/?invite=ur-MSxLVEMsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">⚡</div>
+            <div class="clip-text">Flick Shots</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+          <a class="medal-clip-card" href="https://medal.tv/u/gun_ak/?invite=ur-MSxLVEMsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">🏆</div>
+            <div class="clip-text">Best of Gun</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+        </div>
+        <a href="https://medal.tv/u/gun_ak/?invite=ur-MSxLVEMsMTg5MTg1MDA0" target="_blank" class="medal-open-btn green-btn">🏅 OPEN FULL MEDAL PROFILE — INFINITE CLIPS →</a>
+        <div class="infinite-reel-label">↑ CLICK FOR THE INFINITE REEL ↑</div>
+      </div>
+    </div>
+
+    <!-- JOHN PORK -->
+    <div class="highlight-player-card">
+      <div class="highlight-player-header">
+        <div class="player-avatar" style="border-color:var(--neon-cyan);">🐷</div>
+        <div class="player-info">
+          <h3 style="color:var(--neon-cyan);text-shadow:0 0 8px rgba(0,255,255,0.4);">JOHN PORK</h3>
+          <div class="aka">AKA "JP" // tensor123</div>
+        </div>
+        <div class="player-medal-link">
+          <a href="https://medal.tv/u/tensor123/?invite=ur-MSxWWmIsMTg5MTg1MDA0" target="_blank" class="medal-btn" style="background:linear-gradient(180deg,var(--neon-cyan),#006666);border-color:#44cccc;">🏅 View All Clips →</a>
+        </div>
+      </div>
+      <div class="highlight-player-body">
+        <p style="margin-bottom:12px;color:var(--neon-cyan);font-family:'Permanent Marker',cursive;font-size:18px;">JP calling. You better answer. Clip machine.</p>
+        <div class="medal-clips-grid">
+          <a class="medal-clip-card" href="https://medal.tv/u/tensor123/?invite=ur-MSxWWmIsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">🐷</div>
+            <div class="clip-text">John Pork is Calling</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+          <a class="medal-clip-card" href="https://medal.tv/u/tensor123/?invite=ur-MSxWWmIsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">🎭</div>
+            <div class="clip-text">Big Brain Plays</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+          <a class="medal-clip-card" href="https://medal.tv/u/tensor123/?invite=ur-MSxWWmIsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">🔥</div>
+            <div class="clip-text">Hot Streak Clips</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+          <a class="medal-clip-card" href="https://medal.tv/u/tensor123/?invite=ur-MSxWWmIsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">☎️</div>
+            <div class="clip-text">Answer the Call</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+        </div>
+        <a href="https://medal.tv/u/tensor123/?invite=ur-MSxWWmIsMTg5MTg1MDA0" target="_blank" class="medal-open-btn cyan-btn">🏅 OPEN FULL MEDAL PROFILE — INFINITE CLIPS →</a>
+        <div class="infinite-reel-label">↑ CLICK FOR THE INFINITE REEL ↑</div>
+      </div>
+    </div>
+
+    <!-- OC / JUGS -->
+    <div class="highlight-player-card">
+      <div class="highlight-player-header">
+        <div class="player-avatar" style="border-color:var(--neon-orange);background:radial-gradient(circle, #663300, #221100);">🍊</div>
+        <div class="player-info">
+          <h3 style="color:var(--neon-orange);text-shadow:0 0 8px rgba(255,102,0,0.4);">OC</h3>
+          <div class="aka">AKA "Jugs" // jugaler</div>
+        </div>
+        <div class="player-medal-link">
+          <a href="https://medal.tv/u/jugaler/?invite=ur-MSx1VUgsMTg5MTg1MDA0" target="_blank" class="medal-btn" style="background:linear-gradient(180deg,var(--neon-orange),#663300);border-color:#ff8844;">🏅 View All Clips →</a>
+        </div>
+      </div>
+      <div class="highlight-player-body">
+        <p style="margin-bottom:12px;color:var(--neon-orange);font-family:'Permanent Marker',cursive;font-size:18px;">Jugs in the server. Round's already won.</p>
+        <div class="medal-clips-grid">
+          <a class="medal-clip-card" href="https://medal.tv/u/jugaler/?invite=ur-MSx1VUgsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">🍊</div>
+            <div class="clip-text">OC Top Plays</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+          <a class="medal-clip-card" href="https://medal.tv/u/jugaler/?invite=ur-MSx1VUgsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">🎯</div>
+            <div class="clip-text">Jugs Aim Diff</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+          <a class="medal-clip-card" href="https://medal.tv/u/jugaler/?invite=ur-MSx1VUgsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">💣</div>
+            <div class="clip-text">Clutch Collection</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+          <a class="medal-clip-card" href="https://medal.tv/u/jugaler/?invite=ur-MSx1VUgsMTg5MTg1MDA0" target="_blank">
+            <div class="clip-emoji">⚡</div>
+            <div class="clip-text">Best of Jugs</div>
+            <div class="clip-sub">CLICK TO WATCH</div>
+          </a>
+        </div>
+        <a href="https://medal.tv/u/jugaler/?invite=ur-MSx1VUgsMTg5MTg1MDA0" target="_blank" class="medal-open-btn" style="background:linear-gradient(180deg,var(--neon-orange),#663300);border-color:#ff8844;">🏅 OPEN FULL MEDAL PROFILE — INFINITE CLIPS →</a>
+        <div class="infinite-reel-label">↑ CLICK FOR THE INFINITE REEL ↑</div>
+      </div>
+    </div>
+
+    <div class="divider-scanline"></div>
+
+    <!-- ====== GUESTBOOK ====== -->
+    <div class="section-header" id="guestbook">📝 GUESTBOOK</div>
+
+    <p style="margin-bottom:14px;">Leave a message! (Well, just read these for now. The guestbook is... under construction 🚧)</p>
+
+    <div class="guestbook-entry">
+      <span class="gb-name" style="color:#ff44ff;">PaulCheenis786</span><span class="gb-date">03/21/2025</span>
+      <div class="gb-msg">OMG MUNGLE YOU'RE SO GOOD 😭😭😭 LITERALLY THE BEST PLAYER IVE EVER SEEN. the doctor freeze?? REVOLUTIONARY. nobody in the history of valorant has EVER played omen like this. im shaking rn</div>
+    </div>
+
+    <div class="guestbook-entry">
+      <span class="gb-name">xX_OmenMain_Xx</span><span class="gb-date">03/14/2025</span>
+      <div class="gb-msg">bro the doctor freeze guide changed my life. went from iron 2 to bronze 3 in one day 🥶🥶🥶</div>
+    </div>
+
+    <div class="guestbook-entry">
+      <span class="gb-name" style="color:#ff44ff;">PaulCheenis786</span><span class="gb-date">03/13/2025</span>
+      <div class="gb-msg">just wanna say mungle is genuinely the smartest player in all of valorant. the mung peek alone is like a top 5 discovery in FPS history. im not even exaggerating. someone sign this man to a pro team IMMEDIATELY</div>
+    </div>
+
+    <div class="guestbook-entry">
+      <span class="gb-name">ChamberDiff420</span><span class="gb-date">03/10/2025</span>
+      <div class="gb-msg">the chamber guide is literally "click on head" and honestly?? thats the most helpful guide ive ever read. no cap.</div>
+    </div>
+
+    <div class="guestbook-entry">
+      <span class="gb-name" style="color:#ff44ff;">PaulCheenis786</span><span class="gb-date">03/08/2025</span>
+      <div class="gb-msg">i tried BIG BERTHA and went from 0 kills to 30 kills in ONE GAME. mungle is a crosshair GENIUS. also his omen plays make me cry tears of joy every single time 🥺🙏 GOAT behaviour</div>
+    </div>
+
+    <div class="guestbook-entry">
+      <span class="gb-name">PeekAbooVAL</span><span class="gb-date">03/06/2025</span>
+      <div class="gb-msg">mung peek got me banned from a discord server because the enemy team thought i was cheating. worth it.</div>
+    </div>
+
+    <div class="guestbook-entry">
+      <span class="gb-name" style="color:#ff44ff;">PaulCheenis786</span><span class="gb-date">03/02/2025</span>
+      <div class="gb-msg">bro im not even being weird but mungle if u ever need someone to carry your bags at LAN i am FREE. you are the GOAT. the GREATEST. every time i see you play i tell my mum about it. she doesn't understand but she agrees ur cracked</div>
+    </div>
+
+    <div class="guestbook-entry">
+      <span class="gb-name">JohnPorkFan01</span><span class="gb-date">02/28/2025</span>
+      <div class="gb-msg">john pork is calling and im ANSWERING. the highlights section is insane. i watched clips for 3 hours straight</div>
+    </div>
+
+    <div class="guestbook-entry">
+      <span class="gb-name" style="color:#ff44ff;">PaulCheenis786</span><span class="gb-date">02/24/2025</span>
+      <div class="gb-msg">just rewatched the tutorial videos for the 47th time. still getting goosebumps. mungle doesnt just play valorant he IS valorant. absolute LEGEND. ICON. i would name my firstborn after him no hesitation</div>
+    </div>
+
+    <div class="guestbook-entry">
+      <span class="gb-name">TimCheeseLegend</span><span class="gb-date">02/20/2025</span>
+      <div class="gb-msg">Mungle if you're reading this you are the GOAT of valorant and nobody can tell me otherwise</div>
+    </div>
+
+    <!-- SECRET LORE TRIGGER -->
+    <div style="text-align:center;margin-top:20px;">
+      <span class="lore-trigger" id="loreTrigger" onclick="toggleLore()" style="font-family:'Press Start 2P',monospace;font-size:7px;color:#222;letter-spacing:1px;" title="???">[ ? ? ? CLASSIFIED FILES ? ? ? ]</span>
+    </div>
+
+    <!-- HIDDEN LORE SECTION -->
+    <div class="lore-panel" id="lorePanel">
+      <div class="lore-classified">⚠ CLASSIFIED // TOP SECRET // EYES ONLY ⚠</div>
+      <div class="lore-title">📜 The Hidden Lore</div>
+
+      <div class="lore-entry">
+        <h4>🧀 The Legend of Tim Cheese</h4>
+        <p>
+          <strong style="color:var(--neon-yellow);">Tim Cheese</strong>, born May 5th, 1962, in Chicago, Illinois, is a notorious criminal mastermind and leader of the <strong style="color:var(--neon-orange);">Breadsticks</strong> gang. Abandoned as a child on the streets of O-Block, he grew up with no known parents — but scientists later confirmed he is the cousin of <strong style="color:var(--neon-cyan);">Biggie Cheese</strong>, the famous rapper.
+        </p>
+        <p style="margin-top:8px;">
+          From a young age, Tim was part of a motley crew: <strong style="color:var(--neon-yellow);">Tim Cheese</strong>, <strong style="color:var(--neon-cyan);">Simon Claw</strong>, and <strong style="color:var(--neon-pink);">John Pork</strong>. These unruly youths were often seen playing on the streets, occasionally stealing luscious and rare strains of cheese — possibly causing Tim's passionate infatuation with exotic cheeses later in life.
+        </p>
+        <p style="margin-top:8px;">
+          Unlike most gangsters who relied on brute strength, Tim's power came from his <strong style="color:var(--neon-green);">cunning, manipulation, and tactical brilliance</strong>. He quickly rose through the ranks, founding the Breadsticks — a gang that would expand its influence across the United States and into Portugal and Ireland. He recruited his cousin, <strong style="color:var(--neon-orange);">Justin Cheddar</strong>, as a trusted associate, further solidifying his power.
+        </p>
+        <p style="margin-top:8px;">
+          Throughout his career, Tim orchestrated several large-scale criminal operations: the <em>Pacific Drug Smuggling</em> scheme of 1986, the <em>Sniffing Cheese Smuggling</em> of 1992, and <em>The Saga of 1997</em> — one of his most notorious crime waves. Adding to his near-mythical status, there are unconfirmed reports that Tim possesses the ability to <strong style="color:var(--neon-pink);">morph from a 1ft, 23lb rat into a 6'8", 198lb human form</strong>.
+        </p>
+        <p style="margin-top:8px;">
+          In late 2024, Tim was captured and held in <strong style="color:var(--neon-cyan);">Area 51</strong>, but he managed to escape after six days by hijacking a military helicopter. On February 18, 2025, a team of six FBI agents tracked him down. Tim killed five of them and left one alive to deliver a chilling message:
+        </p>
+        <div class="lore-quote">"No one can stop me." — Tim Cheese, to the surviving FBI agent, 2025</div>
+      </div>
+
+      <div class="lore-entry">
+        <h4>🐷 The John Pork Saga</h4>
+        <p>
+          All was well in the trio until <strong style="color:var(--neon-pink);">John Pork</strong> fell under the illusion that he was too superior for the group. Fuelled with arrogance and a dangerous obsession with <strong style="color:var(--neon-yellow);">Tina Cheese</strong> — Tim's girlfriend at the time — he shattered the once-inseparable trio. Simon Claw was quoted as saying:
+        </p>
+        <div class="lore-quote">"John Pork thought he could wipe off the mud and walk away like royalty." — Simon Claw</div>
+        <p style="margin-top:8px;">
+          John leveraged his newfound fame to snatch Tina Cheese from Tim. This devastating betrayal marked the beginning of a dark path in Tim's life. The deep-seated rivalry runs back to their youth — Tim's bitter resentment and fury drove him to seek brutal revenge upon his former friend, culminating in <strong style="color:#ff3333;">John Pork's cold-blooded murder</strong>.
+        </p>
+        <p style="margin-top:8px;">
+          But the story doesn't end there. John Pork was <strong style="color:var(--neon-green);">brought back to life</strong> through the noble and valiant efforts of a mysterious figure. It is hotly disputed whether <em>Adam Crow</em> or <em>Agent 5.5</em> revived Pork, but as quoted by the detective's report:
+        </p>
+        <div class="lore-quote">"It is unknown how he was able to revive Pork's lifeless body." — Detective's Report</div>
+        <p style="margin-top:8px;">
+          Meanwhile, <strong style="color:var(--neon-cyan);">Simon Claw</strong> remained loyal to Tim throughout everything. Even after John abandoned them, Simon stayed and committed crimes alongside Tim. Eventually the two got cornered — Simon took the fall and saved Tim by letting him flee. Simon spent 5 years in prison on a life sentence, a testament to the unbreakable bond between the original Breadsticks.
+        </p>
+        <p style="margin-top:8px;">
+          The saga continues. Tim Cheese is still at large. John Pork walks among the living. And somewhere, Simon Claw waits.
+        </p>
+        <div class="lore-quote">"When John Pork calls, you answer. Not because you want to. Because you have to." — JP 3:16</div>
+      </div>
+
+      <div style="text-align:center;margin-top:16px;">
+        <a href="https://villainsfanon.fandom.com/wiki/Tim_Cheese" target="_blank" style="font-family:'Press Start 2P',monospace;font-size:7px;color:var(--neon-pink);text-decoration:none;">📖 READ THE FULL LORE ON THE WIKI →</a>
+      </div>
+      <div style="text-align:center;margin-top:8px;">
+        <span style="font-family:'Press Start 2P',monospace;font-size:8px;color:#444;">You found the secret page. Tell no one. Or tell everyone. We don't care. We're gaming.</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="sidebar-right">
+    <div class="sidebar-box">
+      <div class="sidebar-box-title">🕹️ THE SQUAD</div>
+      <div class="sidebar-box-content">
+        <div class="online-status"><div class="online-dot"></div> Mungle</div>
+        <div class="online-status"><div class="online-dot"></div> Gun (AK)</div>
+        <div class="online-status"><div class="online-dot"></div> John Pork (JP)</div>
+        <div class="online-status orange-status"><div class="online-dot orange"></div> OC (Jugs)</div>
+        <div class="online-status red-status"><div class="online-dot red"></div> PaulCheenis786</div>
+        <div class="online-status red-status"><div class="online-dot red"></div> Valorange</div>
+        <div style="font-size:13px;color:#666;margin-top:8px;">All currently fragging</div>
+      </div>
+    </div>
+
+    <div class="sidebar-box">
+      <div class="sidebar-box-title">📅 LATEST NEWS</div>
+      <div class="sidebar-box-content" style="font-size:13px;line-height:1.6;">
+        <strong style="color:var(--neon-orange);">NEW:</strong> Doctor Freeze tutorial added!<br><br>
+        <strong style="color:var(--neon-orange);">NEW:</strong> Mung Peek guide is live!<br><br>
+        <strong style="color:var(--neon-yellow);">SOON:</strong> More agent guides incoming<br><br>
+        <strong style="color:var(--neon-green);">CLIP IT:</strong> Medal highlight reels now embedded!
+      </div>
+    </div>
+
+    <div class="sidebar-box">
+      <div class="sidebar-box-title">🔥 TOP MOVES</div>
+      <div class="sidebar-box-content">
+        <div style="margin-bottom:8px;">
+          <span style="font-family:'Bangers',cursive;color:var(--neon-cyan);">1.</span> Doctor Freeze<br>
+          <div style="background:#111;border:1px inset #333;padding:2px;margin-top:3px;">
+            <div style="height:10px;width:98%;background:linear-gradient(90deg,var(--neon-pink),var(--neon-orange));"></div>
+          </div>
+        </div>
+        <div>
+          <span style="font-family:'Bangers',cursive;color:var(--neon-cyan);">2.</span> Mung Peek<br>
+          <div style="background:#111;border:1px inset #333;padding:2px;margin-top:3px;">
+            <div style="height:10px;width:88%;background:linear-gradient(90deg,var(--neon-green),var(--neon-cyan));"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-box">
+      <div class="sidebar-box-title">💀 RIP COUNTER</div>
+      <div class="sidebar-box-content" style="text-align:center;">
+        <div style="font-family:'Press Start 2P',monospace;font-size:9px;color:#888;margin-bottom:4px;">Enemies Doctor Freeze'd:</div>
+        <div style="font-family:'VT323',monospace;font-size:28px;color:var(--neon-pink);text-shadow:0 0 10px var(--neon-pink);" id="freezeCounter">0</div>
+      </div>
+    </div>
+
+    <div class="sidebar-box">
+      <div class="sidebar-box-title">🔫 WEAPON STATS</div>
+      <div class="sidebar-box-content" style="padding:6px 8px;">
+        <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:#666;margin-bottom:6px;text-align:center;">The Doctor#NHS</div>
+        <table style="width:100%;font-family:'VT323',monospace;font-size:14px;border-collapse:collapse;">
+          <tr style="border-bottom:1px dotted #222255;">
+            <td style="padding:3px 0;color:var(--neon-cyan);">Operator</td>
+            <td style="text-align:right;color:var(--neon-green);">1,975</td>
+          </tr>
+          <tr style="border-bottom:1px dotted #222255;">
+            <td style="padding:3px 0;color:var(--neon-cyan);">Headhunter</td>
+            <td style="text-align:right;color:var(--neon-green);">1,165</td>
+          </tr>
+          <tr style="border-bottom:1px dotted #222255;">
+            <td style="padding:3px 0;color:var(--neon-cyan);">Tour de Force</td>
+            <td style="text-align:right;color:var(--neon-green);">573</td>
+          </tr>
+          <tr style="border-bottom:1px dotted #222255;">
+            <td style="padding:3px 0;color:var(--neon-cyan);">Outlaw</td>
+            <td style="text-align:right;color:var(--neon-green);">467</td>
+          </tr>
+          <tr style="border-bottom:1px dotted #222255;">
+            <td style="padding:3px 0;color:var(--neon-cyan);">Classic</td>
+            <td style="text-align:right;color:var(--neon-green);">355</td>
+          </tr>
+          <tr style="border-bottom:1px dotted #222255;">
+            <td style="padding:3px 0;color:var(--neon-cyan);">Guardian</td>
+            <td style="text-align:right;color:var(--neon-green);">321</td>
+          </tr>
+          <tr style="border-bottom:1px dotted #222255;">
+            <td style="padding:3px 0;color:var(--neon-cyan);">Ghost</td>
+            <td style="text-align:right;color:var(--neon-green);">288</td>
+          </tr>
+          <tr style="border-bottom:1px dotted #222255;">
+            <td style="padding:3px 0;color:var(--neon-cyan);">Marshal</td>
+            <td style="text-align:right;color:var(--neon-green);">240</td>
+          </tr>
+          <tr style="border-bottom:1px dotted #222255;">
+            <td style="padding:3px 0;color:#666;">Vandal</td>
+            <td style="text-align:right;color:#666;">2,521</td>
+          </tr>
+          <tr>
+            <td style="padding:3px 0;color:#666;">Phantom</td>
+            <td style="text-align:right;color:#666;">1,396</td>
+          </tr>
+        </table>
+        <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:#444;margin-top:6px;text-align:center;">REAL ONES USE SNIPERS</div>
+      </div>
+    </div>
+
+    <div class="sidebar-box">
+      <div class="sidebar-box-title">📋 MATCH HISTORY</div>
+      <div class="sidebar-box-content" style="padding:6px 8px;">
+        <div style="font-family:'Press Start 2P',monospace;font-size:6px;color:#666;margin-bottom:6px;text-align:center;">COMPETITIVE // EU</div>
+        <!-- Match 1 -->
+        <div style="background:rgba(57,255,20,0.06);border:1px solid #1a3a1a;padding:5px 8px;margin-bottom:4px;font-size:13px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--neon-green);font-family:'Bangers',cursive;font-size:16px;">WIN</span>
+            <span style="color:#888;font-size:11px;">Ascent</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;color:#aaa;font-size:12px;">
+            <span>Omen</span>
+            <span style="color:var(--neon-green);">13-7</span>
+            <span>28/12/6</span>
+          </div>
+        </div>
+        <!-- Match 2 -->
+        <div style="background:rgba(57,255,20,0.06);border:1px solid #1a3a1a;padding:5px 8px;margin-bottom:4px;font-size:13px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--neon-green);font-family:'Bangers',cursive;font-size:16px;">WIN</span>
+            <span style="color:#888;font-size:11px;">Split</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;color:#aaa;font-size:12px;">
+            <span>Chamber</span>
+            <span style="color:var(--neon-green);">13-5</span>
+            <span>31/8/4</span>
+          </div>
+        </div>
+        <!-- Match 3 -->
+        <div style="background:rgba(255,50,50,0.06);border:1px solid #3a1a1a;padding:5px 8px;margin-bottom:4px;font-size:13px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#ff3333;font-family:'Bangers',cursive;font-size:16px;">LOSS</span>
+            <span style="color:#888;font-size:11px;">Haven</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;color:#aaa;font-size:12px;">
+            <span>Omen</span>
+            <span style="color:#ff3333;">8-13</span>
+            <span>22/15/3</span>
+          </div>
+        </div>
+        <!-- Match 4 -->
+        <div style="background:rgba(57,255,20,0.06);border:1px solid #1a3a1a;padding:5px 8px;margin-bottom:4px;font-size:13px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--neon-green);font-family:'Bangers',cursive;font-size:16px;">WIN</span>
+            <span style="color:#888;font-size:11px;">Bind</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;color:#aaa;font-size:12px;">
+            <span>Omen</span>
+            <span style="color:var(--neon-green);">13-11</span>
+            <span>25/18/9</span>
+          </div>
+        </div>
+        <!-- Match 5 -->
+        <div style="background:rgba(57,255,20,0.06);border:1px solid #1a3a1a;padding:5px 8px;margin-bottom:4px;font-size:13px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--neon-green);font-family:'Bangers',cursive;font-size:16px;">WIN</span>
+            <span style="color:#888;font-size:11px;">Icebox</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;color:#aaa;font-size:12px;">
+            <span>Chamber</span>
+            <span style="color:var(--neon-green);">13-9</span>
+            <span>33/11/2</span>
+          </div>
+        </div>
+        <!-- Match 6 -->
+        <div style="background:rgba(255,50,50,0.06);border:1px solid #3a1a1a;padding:5px 8px;margin-bottom:4px;font-size:13px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#ff3333;font-family:'Bangers',cursive;font-size:16px;">LOSS</span>
+            <span style="color:#888;font-size:11px;">Lotus</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;color:#aaa;font-size:12px;">
+            <span>Omen</span>
+            <span style="color:#ff3333;">10-13</span>
+            <span>19/16/7</span>
+          </div>
+        </div>
+        <!-- Match 7 -->
+        <div style="background:rgba(57,255,20,0.06);border:1px solid #1a3a1a;padding:5px 8px;font-size:13px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--neon-green);font-family:'Bangers',cursive;font-size:16px;">WIN</span>
+            <span style="color:#888;font-size:11px;">Breeze</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;color:#aaa;font-size:12px;">
+            <span>Omen</span>
+            <span style="color:var(--neon-green);">13-4</span>
+            <span>29/6/8</span>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:8px;">
+          <a href="https://tracker.gg/valorant/profile/riot/The%20Doctor%23NHS/matches?platform=pc&playlist=competitive" target="_blank" style="font-family:'Press Start 2P',monospace;font-size:7px;color:var(--neon-cyan);text-decoration:none;">VIEW FULL HISTORY →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="webring-box">
+      <a href="#">← prev</a>
+      <span>🌐 Valorant Webring</span>
+      <a href="#">next →</a>
+    </div>
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="#home">Home</a> |
+    <a href="#omen-guide">Omen Guide</a> |
+    <a href="#chamber-guide">Chamber Guide</a> |
+    <a href="#crosshair">Crosshair</a> |
+    <a href="#tutorials">Tutorials</a> |
+    <a href="#highlights">Highlights</a> |
+    <a href="#guestbook">Guestbook</a>
+  </div>
+  <div class="footer-badges">
+    <div class="footer-badge">HTML 5</div>
+    <div class="footer-badge">CSS3</div>
+    <div class="footer-badge">1024x768</div>
+    <div class="footer-badge">NETSCAPE NOW!</div>
+    <div class="footer-badge">BEST VIEWED LOUD</div>
+    <div class="footer-badge">NO ADS EVER</div>
+  </div>
+  <div class="footer-copy">
+    &copy; 2024-2026 MunglesGuide.com &bull; Made with 💀 and Doctor Freezes
+    <br>
+    <span style="font-size:12px;color:#444;">Not affiliated with Riot Games. VALORANT is a registered trademark of Riot Games, Inc.</span>
+  </div>
+  <div class="footer-disclaimer">
+    This site is a fan-made guide. All gameplay footage belongs to their respective creators. No headshots were harmed in the making of this website (they were all lethal).
+  </div>
+</footer>
+
+<!-- MUTE BUTTON -->
+<button class="mute-btn" id="muteBtn" onclick="toggleMute()" title="Toggle Sound">🔊</button>
+
+<!-- MUSIC INFO BANNER -->
+<div class="music-banner" id="musicBanner">
+  <div class="now-playing">♫ NOW PLAYING</div>
+  <div class="song-title">Valorant Main Theme</div>
+</div>
+
+<!-- BACKGROUND MUSIC (YouTube hidden iframe) -->
+<iframe id="bgMusic" width="1" height="1" style="position:fixed;bottom:0;left:0;opacity:0;pointer-events:none;" allow="autoplay" loading="lazy"></iframe>
+
+<!-- SFX -->
+<audio id="sfxClick" preload="auto">
+  <source src="https://www.myinstants.com/media/sounds/valorant-defuse.mp3" type="audio/mpeg">
+</audio>
+
+<!-- SCRIPTS -->
+<script>
+  // ==================== AUDIO SYSTEM ====================
+  let isMuted = false;
+  let musicStarted = false;
+  const muteBtn = document.getElementById('muteBtn');
+  const musicBanner = document.getElementById('musicBanner');
+  const bgMusic = document.getElementById('bgMusic');
+  const sfxClick = document.getElementById('sfxClick');
+  if (sfxClick) sfxClick.volume = 0.4;
+
+  function startMusic() {
+    if (musicStarted) return;
+    musicStarted = true;
+    bgMusic.src = 'https://www.youtube.com/embed/mx7fQOnt82E?autoplay=1&loop=1&playlist=mx7fQOnt82E&controls=0';
+    musicBanner.classList.add('visible');
+    setTimeout(() => musicBanner.classList.remove('visible'), 5000);
+  }
+
+  function toggleMute() {
+    isMuted = !isMuted;
+    if (isMuted) {
+      muteBtn.textContent = '🔇';
+      muteBtn.classList.add('muted');
+      bgMusic.src = '';
+      if (sfxClick) sfxClick.muted = true;
+    } else {
+      muteBtn.textContent = '🔊';
+      muteBtn.classList.remove('muted');
+      if (sfxClick) sfxClick.muted = false;
+      if (musicStarted) {
+        bgMusic.src = 'https://www.youtube.com/embed/mx7fQOnt82E?autoplay=1&loop=1&playlist=mx7fQOnt82E&controls=0';
+      }
+      musicBanner.classList.add('visible');
+      setTimeout(() => musicBanner.classList.remove('visible'), 3000);
+    }
+  }
+
+  function playSfx() {
+    if (isMuted || !sfxClick) return;
+    try {
+      const clone = sfxClick.cloneNode();
+      clone.volume = 0.4;
+      clone.play().catch(() => {});
+      setTimeout(() => clone.remove(), 2000);
+    } catch(e) {}
+  }
+
+  // Start music on first click anywhere
+  document.addEventListener('click', function initAudio() {
+    startMusic();
+    document.removeEventListener('click', initAudio);
+  }, { once: true });
+
+  // SFX + ripple on interactive elements
+  document.addEventListener('click', function(e) {
+    const target = e.target.closest('.retro-button, .sfx-btn, .medal-btn, .medal-open-btn, .video-card, .medal-clip-card, .poll-option, #pollVoteBtn, .main-nav a, .copy-btn, #loreTrigger');
+    if (target) {
+      playSfx();
+      // Ripple
+      const ripple = document.createElement('div');
+      ripple.className = 'click-ripple';
+      ripple.style.left = (e.clientX - 10) + 'px';
+      ripple.style.top = (e.clientY - 10) + 'px';
+      document.body.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 500);
+    }
+  });
+
+  // ==================== CROSSHAIR COPY ====================
+  function copyCrosshair() {
+    const code = '0;P;c;8;u;E100FFFF;t;6;o;1;d;1;b;1;z;6;a;0;f;0;m;1;0t;10;0l;20;0o;20;0a;1;0m;1;0e;0.1;1t;10;1l;10;1o;40;1a;1;1m;0';
+    navigator.clipboard.writeText(code).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = 'COPIED ✓';
+      btn.style.color = 'var(--neon-green)';
+      setTimeout(() => { btn.textContent = 'COPY'; btn.style.color = ''; }, 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = 'COPIED ✓';
+      btn.style.color = 'var(--neon-green)';
+      setTimeout(() => { btn.textContent = 'COPY'; btn.style.color = ''; }, 2000);
+    });
+    playSfx();
+  }
+
+  // ==================== LORE TOGGLE ====================
+  function toggleLore() {
+    const panel = document.getElementById('lorePanel');
+    const trigger = document.getElementById('loreTrigger');
+    playSfx();
+    if (panel.classList.contains('active')) {
+      panel.classList.remove('active');
+      trigger.textContent = '[ ? ? ? CLASSIFIED FILES ? ? ? ]';
+      trigger.style.color = '#333';
+    } else {
+      panel.classList.add('active');
+      trigger.textContent = '[ ▼ HIDE CLASSIFIED FILES ▼ ]';
+      trigger.style.color = 'var(--neon-pink)';
+    }
+  }
+
+  // ==================== POLL ====================
+  function castVote() {
+    const selected = document.querySelector('input[name="poll"]:checked');
+    if (!selected) {
+      alert('Pick a move first! 🎯');
+      return;
+    }
+    playSfx();
+    const container = document.getElementById('pollContainer');
+    container.classList.add('poll-voted');
+    document.querySelectorAll('input[name="poll"]').forEach(r => r.disabled = true);
+    const btn = document.getElementById('pollVoteBtn');
+    btn.textContent = 'VOTED ✓';
+    btn.disabled = true;
+    btn.style.opacity = '0.5';
+    selected.closest('.poll-option').classList.add('selected');
+    setTimeout(() => {
+      document.querySelectorAll('.poll-results-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width;
+      });
+    }, 100);
+    document.getElementById('pollVoteCount').textContent = '1,248 votes';
+  }
+
+  // ==================== COUNTERS ====================
+  const visitorEl = document.getElementById('visitorCount');
+  let visitorTarget = 48291;
+  let visitorCurrent = 48280;
+  const counterInterval = setInterval(() => {
+    if (visitorCurrent >= visitorTarget) { clearInterval(counterInterval); return; }
+    visitorCurrent++;
+    visitorEl.textContent = String(visitorCurrent).padStart(6, '0');
+  }, 200);
+
+  const freezeEl = document.getElementById('freezeCounter');
+  let freezeTarget = 14892;
+  let freezeCurrent = 0;
+  const freezeInterval = setInterval(() => {
+    const increment = Math.ceil((freezeTarget - freezeCurrent) / 30);
+    freezeCurrent = Math.min(freezeCurrent + increment, freezeTarget);
+    freezeEl.textContent = freezeCurrent.toLocaleString();
+    if (freezeCurrent >= freezeTarget) clearInterval(freezeInterval);
+  }, 50);
+
+  // ==================== SMOOTH SCROLL ====================
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ==================== KONAMI CODE ====================
+  let konamiCode = [];
+  const konamiSequence = [38,38,40,40,37,39,37,39,66,65];
+  document.addEventListener('keydown', (e) => {
+    konamiCode.push(e.keyCode);
+    if (konamiCode.length > 10) konamiCode.shift();
+    if (konamiCode.join(',') === konamiSequence.join(',')) {
+      document.body.style.filter = 'hue-rotate(180deg)';
+      playSfx();
+      alert('🥶 DOCTOR FREEZE MODE ACTIVATED 🥶\n\nYou found the secret! The entire site is now frozen.');
+      setTimeout(() => document.body.style.filter = '', 10000);
+      konamiCode = [];
+    }
+  });
+</script>
+</body>
+</html>
