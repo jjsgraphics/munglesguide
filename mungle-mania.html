@@ -291,13 +291,15 @@
   #game-over {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.9);
     display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 200;
-    cursor: pointer;
+    cursor: default;
+    overflow-y: auto;
+    padding: 20px;
   }
 
   #game-over h2 {
@@ -323,12 +325,137 @@
     line-height: 1.8;
   }
 
-  #game-over .restart-text {
+  /* === NAME INPUT === */
+  #name-form {
+    margin-top: 20px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  #name-input {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    padding: 10px 14px;
+    background: #111;
+    color: #ffff00;
+    border: 2px solid #ffff00;
+    outline: none;
+    width: 200px;
+    text-transform: uppercase;
+  }
+
+  #name-input:focus {
+    border-color: #ff1493;
+    box-shadow: 0 0 12px rgba(255,20,147,0.4);
+  }
+
+  #name-input::placeholder {
+    color: #555;
+    font-size: 10px;
+  }
+
+  #submit-score-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    padding: 10px 16px;
+    background: linear-gradient(180deg, #ff6600, #cc3300);
+    color: #fff;
+    border: 2px outset #ff8844;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  #submit-score-btn:hover {
+    background: linear-gradient(180deg, #ff8800, #ff4400);
+    border-style: inset;
+  }
+
+  #submit-score-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  /* === LEADERBOARD === */
+  #leaderboard {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  #leaderboard h3 {
+    font-family: 'Bangers', cursive;
+    font-size: 28px;
+    color: #ffff00;
+    text-shadow: 0 0 10px rgba(255,255,0,0.4);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .lb-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+  }
+
+  .lb-table th {
+    color: #888;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    padding: 6px 8px;
+    text-align: left;
+    border-bottom: 2px solid #333;
+  }
+
+  .lb-table th:last-child {
+    text-align: right;
+  }
+
+  .lb-table td {
+    padding: 5px 8px;
+    border-bottom: 1px dotted #222;
+    color: #ccc;
+  }
+
+  .lb-table td:first-child {
+    color: #888;
+    width: 30px;
+  }
+
+  .lb-table td:last-child {
+    text-align: right;
+    color: var(--neon-green, #39ff14);
+  }
+
+  .lb-table tr.lb-highlight td {
+    color: #ffff00;
+    text-shadow: 0 0 6px rgba(255,255,0,0.3);
+  }
+
+  .lb-table tr.lb-gold td:first-child { color: #ffd700; }
+  .lb-table tr.lb-silver td:first-child { color: #c0c0c0; }
+  .lb-table tr.lb-bronze td:first-child { color: #cd7f32; }
+
+  /* === PLAY AGAIN BUTTON === */
+  #play-again-btn {
     font-family: 'Press Start 2P', monospace;
     font-size: clamp(10px, 1.5vw, 14px);
-    color: #00ffff;
-    margin-top: 30px;
-    animation: blink 1s step-end infinite;
+    padding: 12px 24px;
+    background: linear-gradient(180deg, #00aaaa, #006666);
+    color: #fff;
+    border: 2px outset #44cccc;
+    cursor: pointer;
+    margin-top: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  #play-again-btn:hover {
+    background: linear-gradient(180deg, #00cccc, #008888);
+    border-style: inset;
+    box-shadow: 0 0 16px rgba(0,255,255,0.4);
   }
 
   #back-link {
@@ -366,6 +493,13 @@
     Shoot him with the <span>Headhunter</span> before he hides!<br>
     You have <span>30 seconds</span>. Don't miss!
   </div>
+  <div id="start-leaderboard" style="margin-top:24px;width:100%;max-width:400px;">
+    <h3 style="font-family:'Bangers',cursive;font-size:28px;color:#ffff00;text-shadow:0 0 10px rgba(255,255,0,0.4);text-align:center;margin-bottom:8px;">LEADERBOARD</h3>
+    <table class="lb-table" style="width:100%;border-collapse:collapse;font-family:'VT323',monospace;font-size:18px;">
+      <thead><tr><th style="color:#888;font-family:'Press Start 2P',monospace;font-size:8px;padding:6px 8px;text-align:left;border-bottom:2px solid #333;">#</th><th style="color:#888;font-family:'Press Start 2P',monospace;font-size:8px;padding:6px 8px;text-align:left;border-bottom:2px solid #333;">NAME</th><th style="color:#888;font-family:'Press Start 2P',monospace;font-size:8px;padding:6px 8px;text-align:right;border-bottom:2px solid #333;">SCORE</th></tr></thead>
+      <tbody id="start-lb-body"></tbody>
+    </table>
+  </div>
 </div>
 
 <!-- GAME -->
@@ -398,7 +532,18 @@
   <h2>TIME'S UP!</h2>
   <div class="final-score" id="final-score">SCORE: 0</div>
   <div class="final-stats" id="final-stats"></div>
-  <div class="restart-text">CLICK TO PLAY AGAIN</div>
+  <div id="name-form">
+    <input type="text" id="name-input" placeholder="YOUR NAME" maxlength="12" autocomplete="off" spellcheck="false">
+    <button id="submit-score-btn">SUBMIT</button>
+  </div>
+  <div id="leaderboard">
+    <h3>LEADERBOARD</h3>
+    <table class="lb-table">
+      <thead><tr><th>#</th><th>NAME</th><th>SCORE</th></tr></thead>
+      <tbody id="lb-body"></tbody>
+    </table>
+  </div>
+  <button id="play-again-btn">PLAY AGAIN</button>
 </div>
 
 <!-- AUDIO -->
@@ -424,6 +569,58 @@
   const finalScore = document.getElementById('final-score');
   const finalStats = document.getElementById('final-stats');
   const sfxHit = document.getElementById('sfx-hit');
+  const nameInput = document.getElementById('name-input');
+  const submitBtn = document.getElementById('submit-score-btn');
+  const lbBody = document.getElementById('lb-body');
+  const playAgainBtn = document.getElementById('play-again-btn');
+  const nameForm = document.getElementById('name-form');
+
+  // === LEADERBOARD (Upstash Redis) ===
+  let cachedLeaderboard = [];
+
+  async function fetchLeaderboard() {
+    try {
+      const resp = await fetch('/api/get-scores');
+      const data = await resp.json();
+      cachedLeaderboard = data.leaderboard || [];
+    } catch(e) {
+      cachedLeaderboard = [];
+    }
+    return cachedLeaderboard;
+  }
+
+  async function addScore(name, pts) {
+    const cleanName = name.toUpperCase().substring(0, 12);
+    try {
+      await fetch('/api/submit-score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: cleanName, score: pts }),
+      });
+    } catch(e) {}
+    await fetchLeaderboard();
+    return { name: cleanName, score: pts };
+  }
+
+  function renderLeaderboard(highlightEntry) {
+    lbBody.innerHTML = '';
+    if (cachedLeaderboard.length === 0) {
+      lbBody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#555;padding:12px;">No scores yet!</td></tr>';
+      return;
+    }
+    cachedLeaderboard.slice(0, 10).forEach(function(entry, i) {
+      const tr = document.createElement('tr');
+      const isHighlight = highlightEntry && entry.name === highlightEntry.name && entry.score === highlightEntry.score;
+      if (isHighlight) tr.className = 'lb-highlight';
+      if (i === 0) tr.classList.add('lb-gold');
+      else if (i === 1) tr.classList.add('lb-silver');
+      else if (i === 2) tr.classList.add('lb-bronze');
+      const medals = ['👑', '🥈', '🥉'];
+      const rankText = i < 3 ? medals[i] : (i + 1);
+      tr.innerHTML = '<td>' + rankText + '</td><td>' + entry.name + '</td><td>' + entry.score.toLocaleString() + '</td>';
+      lbBody.appendChild(tr);
+    });
+  }
 
   // === GAME STATE ===
   let score = 0;
@@ -480,13 +677,63 @@
     gunContainer.style.transform = 'translateX(calc(-50% + ' + (vw / 2 + sway) + 'px))';
   });
 
+  // Render start screen leaderboard
+  async function renderStartLeaderboard() {
+    await fetchLeaderboard();
+    const body = document.getElementById('start-lb-body');
+    const wrap = document.getElementById('start-leaderboard');
+    if (cachedLeaderboard.length === 0) {
+      body.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#555;padding:12px;">No scores yet! Be the first!</td></tr>';
+      return;
+    }
+    wrap.style.display = 'block';
+    body.innerHTML = '';
+    cachedLeaderboard.slice(0, 10).forEach(function(entry, i) {
+      const tr = document.createElement('tr');
+      if (i === 0) tr.classList.add('lb-gold');
+      else if (i === 1) tr.classList.add('lb-silver');
+      else if (i === 2) tr.classList.add('lb-bronze');
+      const medals = ['👑', '🥈', '🥉'];
+      const rankText = i < 3 ? medals[i] : (i + 1);
+      tr.innerHTML = '<td style="padding:5px 8px;border-bottom:1px dotted #222;color:#888;width:30px;">' + rankText + '</td><td style="padding:5px 8px;border-bottom:1px dotted #222;color:#ccc;">' + entry.name + '</td><td style="padding:5px 8px;border-bottom:1px dotted #222;text-align:right;color:#39ff14;">' + entry.score.toLocaleString() + '</td>';
+      body.appendChild(tr);
+    });
+  }
+  renderStartLeaderboard();
+
   // === START GAME ===
-  startScreen.addEventListener('click', function() {
+  startScreen.addEventListener('click', function(e) {
+    if (e.target.closest('#start-leaderboard')) return;
     startScreen.style.display = 'none';
     startGame();
   });
 
-  gameOver.addEventListener('click', function() {
+  // Prevent clicks on game-over from doing anything unexpected
+  gameOver.addEventListener('click', function(e) { e.stopPropagation(); });
+
+  // Submit score
+  let currentScoreSubmitted = false;
+  let currentHighlightEntry = null;
+
+  submitBtn.addEventListener('click', async function() {
+    const name = nameInput.value.trim();
+    if (!name || currentScoreSubmitted) return;
+    currentScoreSubmitted = true;
+    submitBtn.disabled = true;
+    submitBtn.textContent = '...';
+    nameInput.disabled = true;
+    currentHighlightEntry = await addScore(name, score);
+    submitBtn.textContent = 'SAVED!';
+    renderLeaderboard(currentHighlightEntry);
+  });
+
+  nameInput.addEventListener('keydown', function(e) {
+    e.stopPropagation();
+    if (e.key === 'Enter') submitBtn.click();
+  });
+
+  playAgainBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
     gameOver.style.display = 'none';
     startGame();
   });
@@ -525,7 +772,7 @@
     }, 1000);
   }
 
-  function endGame() {
+  async function endGame() {
     gameRunning = false;
     clearInterval(timerInterval);
     clearTimeout(spawnTimeout);
@@ -541,7 +788,23 @@
       'Accuracy: ' + accuracy + '%<br>' +
       'Best Streak: ' + bestStreak;
 
+    // Reset form state
+    currentScoreSubmitted = false;
+    currentHighlightEntry = null;
+    nameInput.value = '';
+    nameInput.disabled = false;
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'SUBMIT';
+    nameForm.style.display = 'flex';
+
+    // Fetch and show leaderboard
+    await fetchLeaderboard();
+    renderLeaderboard(null);
+
     gameOver.style.display = 'flex';
+
+    // Auto-focus name input after a short delay
+    setTimeout(function() { nameInput.focus(); }, 100);
   }
 
   function updateHUD() {
