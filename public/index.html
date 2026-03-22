@@ -635,62 +635,13 @@
     background: #000;
     border: 3px outset #444488;
     overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-    cursor: pointer;
-    text-decoration: none;
-    display: block;
   }
 
-  .video-card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 20px rgba(0,255,255,0.4), 0 0 40px rgba(255,20,147,0.2);
-  }
-
-  .video-card:hover .video-play-btn {
-    transform: translate(-50%,-50%) scale(1.2);
-    background: rgba(255,0,0,0.95);
-  }
-
-  .video-thumb-wrap {
-    position: relative;
+  .video-card iframe {
     width: 100%;
     aspect-ratio: 16/9;
-    overflow: hidden;
-  }
-
-  .video-thumb-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     display: block;
-    filter: brightness(0.8) contrast(1.1);
-    transition: filter 0.2s;
-  }
-
-  .video-card:hover .video-thumb-wrap img {
-    filter: brightness(1) contrast(1.1);
-  }
-
-  .video-play-btn {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-    width: 56px; height: 40px;
-    background: rgba(255,0,0,0.85);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
-  }
-
-  .video-play-btn::after {
-    content: '';
-    border-style: solid;
-    border-width: 8px 0 8px 16px;
-    border-color: transparent transparent transparent #fff;
-    margin-left: 3px;
+    border: none;
   }
 
   .video-card-label {
@@ -2146,48 +2097,30 @@
     </p>
 
     <div class="video-grid">
-      <a class="video-card" href="https://youtu.be/sd_MIHdd0Pw" target="_blank" rel="noopener">
-        <div class="video-thumb-wrap">
-          <img src="https://img.youtube.com/vi/sd_MIHdd0Pw/hqdefault.jpg" alt="Tutorial 1" loading="lazy">
-          <div class="video-play-btn"></div>
-        </div>
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/sd_MIHdd0Pw" title="Tutorial #1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
         <div class="video-card-label"><span class="yt-icon">▶</span> Tutorial #1</div>
-      </a>
-      <a class="video-card" href="https://youtu.be/0_ICv-csmAI" target="_blank" rel="noopener">
-        <div class="video-thumb-wrap">
-          <img src="https://img.youtube.com/vi/0_ICv-csmAI/hqdefault.jpg" alt="Tutorial 2" loading="lazy">
-          <div class="video-play-btn"></div>
-        </div>
+      </div>
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/0_ICv-csmAI" title="Tutorial #2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
         <div class="video-card-label"><span class="yt-icon">▶</span> Tutorial #2</div>
-      </a>
-      <a class="video-card" href="https://youtu.be/W03KN18y9p4" target="_blank" rel="noopener">
-        <div class="video-thumb-wrap">
-          <img src="https://img.youtube.com/vi/W03KN18y9p4/hqdefault.jpg" alt="Tutorial 3" loading="lazy">
-          <div class="video-play-btn"></div>
-        </div>
+      </div>
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/W03KN18y9p4" title="Tutorial #3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
         <div class="video-card-label"><span class="yt-icon">▶</span> Tutorial #3</div>
-      </a>
-      <a class="video-card" href="https://youtu.be/pjFbT0uSoyQ" target="_blank" rel="noopener">
-        <div class="video-thumb-wrap">
-          <img src="https://img.youtube.com/vi/pjFbT0uSoyQ/hqdefault.jpg" alt="Tutorial 4" loading="lazy">
-          <div class="video-play-btn"></div>
-        </div>
+      </div>
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/pjFbT0uSoyQ" title="Tutorial #4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
         <div class="video-card-label"><span class="yt-icon">▶</span> Tutorial #4</div>
-      </a>
-      <a class="video-card" href="https://youtu.be/iVgXjdlCitQ" target="_blank" rel="noopener">
-        <div class="video-thumb-wrap">
-          <img src="https://img.youtube.com/vi/iVgXjdlCitQ/hqdefault.jpg" alt="Tutorial 5" loading="lazy">
-          <div class="video-play-btn"></div>
-        </div>
+      </div>
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/iVgXjdlCitQ" title="Tutorial #5" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
         <div class="video-card-label"><span class="yt-icon">▶</span> Tutorial #5</div>
-      </a>
-      <a class="video-card" href="https://youtu.be/ep3ZRRB21Ps" target="_blank" rel="noopener">
-        <div class="video-thumb-wrap">
-          <img src="https://img.youtube.com/vi/ep3ZRRB21Ps/hqdefault.jpg" alt="Tutorial 6" loading="lazy">
-          <div class="video-play-btn"></div>
-        </div>
+      </div>
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/ep3ZRRB21Ps" title="Tutorial #6" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
         <div class="video-card-label"><span class="yt-icon">▶</span> Tutorial #6</div>
-      </a>
+      </div>
     </div>
 
     <div class="divider-flame"></div>
