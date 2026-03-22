@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MUNGLE MANIA - Shoot Tim Cheese!</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Bangers&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    overflow: hidden;
+    cursor: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  #start-screen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, #0a0a1a, #1a0033);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    cursor: pointer;
+  }
+
+  #start-screen h1 {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(48px, 10vw, 96px);
+    background: linear-gradient(180deg, #ff6600, #ffff00, #39ff14);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 20px rgba(255,102,0,0.6));
+    animation: titlePulse 1.5s ease-in-out infinite alternate;
+    text-align: center;
+  }
+
+  @keyframes titlePulse {
+    0% { filter: drop-shadow(0 0 20px rgba(255,102,0,0.6)); transform: scale(1); }
+    100% { filter: drop-shadow(0 0 40px rgba(255,255,0,0.8)); transform: scale(1.05); }
+  }
+
+  #start-screen .subtitle {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(10px, 2vw, 16px);
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+    margin-top: 16px;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  #start-screen .instructions {
+    font-family: 'VT323', monospace;
+    font-size: clamp(16px, 2.5vw, 24px);
+    color: #aaa;
+    margin-top: 30px;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  #start-screen .instructions span {
+    color: #ff1493;
+  }
+
+  #start-screen .tim-preview {
+    width: 80px;
+    image-rendering: pixelated;
+    margin-top: 20px;
+    animation: peekUp 2s ease-in-out infinite;
+  }
+
+  @keyframes peekUp {
+    0%, 100% { transform: translateY(20px); }
+    50% { transform: translateY(0); }
+  }
+
+  /* === GAME AREA === */
+  #game-container {
+    position: fixed;
+    inset: 0;
+    display: none;
+  }
+
+  #game-area {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .map-layer {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  #layer-base { z-index: 1; }
+  #layer-targets { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+  #layer-mid { z-index: 3; }
+  #layer-bg { z-index: 4; }
+
+  /* === TARGETS === */
+  .target {
+    position: absolute;
+    pointer-events: auto;
+    cursor: none;
+    z-index: 2;
+    transition: transform 0.3s ease-out;
+  }
+
+  .target img {
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    display: block;
+  }
+
+  .target.peek-up {
+    animation: peekAnim 0.3s ease-out forwards;
+  }
+
+  .target.hide-down {
+    animation: hideAnim 0.25s ease-in forwards;
+  }
+
+  @keyframes peekAnim {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(0); }
+  }
+
+  @keyframes hideAnim {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100%); }
+  }
+
+  .target.hit {
+    animation: hitAnim 0.4s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes hitAnim {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; filter: brightness(3); }
+    100% { transform: translateY(-30px) rotate(15deg); opacity: 0; filter: brightness(1); }
+  }
+
+  /* === HIT MARKER === */
+  .hit-marker {
+    position: absolute;
+    font-family: 'Bangers', cursive;
+    font-size: 28px;
+    color: #ff1493;
+    text-shadow: 0 0 10px #ff1493, 2px 2px 0 #000;
+    pointer-events: none;
+    z-index: 50;
+    animation: hitFloat 0.8s ease-out forwards;
+  }
+
+  @keyframes hitFloat {
+    0% { transform: translateY(0) scale(0.5); opacity: 1; }
+    100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
+  }
+
+  /* === MUZZLE FLASH === */
+  .muzzle-flash {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #fff, #ffff00, #ff6600, transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 90;
+    animation: flashAnim 0.15s ease-out forwards;
+  }
+
+  @keyframes flashAnim {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+  }
+
+  /* === GUN === */
+  #gun-container {
+    position: fixed;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 80;
+    pointer-events: none;
+  }
+
+  #gun-img {
+    width: 180px;
+    height: 180px;
+    image-rendering: pixelated;
+    transition: transform 0.05s linear;
+    filter: drop-shadow(0 0 12px rgba(255,200,50,0.5));
+  }
+
+  #gun-container.recoil #gun-img {
+    animation: recoilAnim 0.15s ease-out;
+  }
+
+  @keyframes recoilAnim {
+    0% { transform: translateY(0) rotate(0deg); }
+    30% { transform: translateY(8px) rotate(-3deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+  }
+
+  /* === CROSSHAIR === */
+  #crosshair {
+    position: fixed;
+    pointer-events: none;
+    z-index: 100;
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 4px rgba(255,200,50,0.6));
+    transform: translate(-50%, -50%);
+  }
+
+  /* === HUD === */
+  #hud {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 60;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.7), transparent);
+    pointer-events: none;
+  }
+
+  .hud-item {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(10px, 1.5vw, 16px);
+    text-shadow: 2px 2px 0 #000;
+  }
+
+  #hud-score { color: #ffff00; }
+  #hud-timer { color: #00ffff; }
+  #hud-streak { color: #ff1493; }
+  #hud-combo {
+    color: #ff6600;
+    font-family: 'Bangers', cursive;
+    font-size: clamp(14px, 2vw, 24px);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  /* === GAME OVER === */
+  #game-over {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    cursor: pointer;
+  }
+
+  #game-over h2 {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(40px, 8vw, 80px);
+    color: #ff1493;
+    text-shadow: 0 0 30px #ff1493;
+  }
+
+  #game-over .final-score {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(16px, 3vw, 32px);
+    color: #ffff00;
+    margin-top: 20px;
+  }
+
+  #game-over .final-stats {
+    font-family: 'VT323', monospace;
+    font-size: clamp(18px, 2.5vw, 28px);
+    color: #aaa;
+    margin-top: 16px;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  #game-over .restart-text {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(10px, 1.5vw, 14px);
+    color: #00ffff;
+    margin-top: 30px;
+    animation: blink 1s step-end infinite;
+  }
+
+  #back-link {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 300;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    color: #00ffff;
+    text-decoration: none;
+    background: rgba(0,0,0,0.6);
+    padding: 6px 10px;
+    border: 1px solid #00ffff;
+    cursor: pointer;
+  }
+
+  #back-link:hover {
+    background: #00ffff;
+    color: #000;
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" id="back-link">&lt; BACK</a>
+
+<!-- START SCREEN -->
+<div id="start-screen">
+  <h1>MUNGLE MANIA</h1>
+  <img src="tim-cheese.png" class="tim-preview" alt="Tim Cheese">
+  <div class="subtitle">CLICK ANYWHERE TO START</div>
+  <div class="instructions">
+    <span>Tim Cheese</span> is peeking around the map!<br>
+    Shoot him with the <span>Headhunter</span> before he hides!<br>
+    You have <span>45 seconds</span>. Don't miss!
+  </div>
+</div>
+
+<!-- GAME -->
+<div id="game-container">
+  <div id="game-area">
+    <img src="map.jpg" class="map-layer" id="layer-base" alt="map">
+    <div id="layer-targets"></div>
+    <img src="map-mid.png" class="map-layer" id="layer-mid" alt="">
+    <img src="map-bg.png" class="map-layer" id="layer-bg" alt="">
+  </div>
+
+  <div id="gun-container">
+    <img src="headhunter-body.png" id="gun-img" alt="Headhunter">
+  </div>
+</div>
+
+<img src="headhunter-sight.png" id="crosshair" alt="crosshair" style="display:none;">
+
+<!-- HUD -->
+<div id="hud">
+  <div class="hud-item" id="hud-score">SCORE: 0</div>
+  <div class="hud-item" id="hud-combo"></div>
+  <div class="hud-item" id="hud-streak">STREAK: 0</div>
+  <div class="hud-item" id="hud-timer">TIME: 45</div>
+</div>
+
+<!-- GAME OVER -->
+<div id="game-over">
+  <h2>TIME'S UP!</h2>
+  <div class="final-score" id="final-score">SCORE: 0</div>
+  <div class="final-stats" id="final-stats"></div>
+  <div class="restart-text">CLICK TO PLAY AGAIN</div>
+</div>
+
+<!-- AUDIO -->
+<audio id="sfx-hit" src="multikill-1.mp3" preload="auto"></audio>
+
+<script>
+(function() {
+  // === ELEMENTS ===
+  const startScreen = document.getElementById('start-screen');
+  const gameContainer = document.getElementById('game-container');
+  const gameArea = document.getElementById('game-area');
+  const targetLayer = document.getElementById('layer-targets');
+  const crosshair = document.getElementById('crosshair');
+  const gunContainer = document.getElementById('gun-container');
+  const gunImg = document.getElementById('gun-img');
+  const hud = document.getElementById('hud');
+  const hudScore = document.getElementById('hud-score');
+  const hudTimer = document.getElementById('hud-timer');
+  const hudStreak = document.getElementById('hud-streak');
+  const hudCombo = document.getElementById('hud-combo');
+  const gameOver = document.getElementById('game-over');
+  const finalScore = document.getElementById('final-score');
+  const finalStats = document.getElementById('final-stats');
+  const sfxHit = document.getElementById('sfx-hit');
+
+  // === GAME STATE ===
+  let score = 0;
+  let streak = 0;
+  let bestStreak = 0;
+  let hits = 0;
+  let misses = 0;
+  let shots = 0;
+  let timeLeft = 45;
+  let gameRunning = false;
+  let timerInterval = null;
+  let spawnTimeout = null;
+  let activeTargets = [];
+
+  // === PEEK SPOTS ===
+  // [xPercent, yPercent (top of target), widthPx, heightPx]
+  // y is where the TARGET TOP sits — bottom is clipped by cover layers
+  const peekSpots = [
+    { x: 3, y: 22, label: 'far-left' },
+    { x: 14, y: 28, label: 'vault' },
+    { x: 28, y: 20, label: 'left-upper' },
+    { x: 38, y: 35, label: 'left-stairs' },
+    { x: 48, y: 25, label: 'center-door' },
+    { x: 56, y: 30, label: 'center-right' },
+    { x: 68, y: 22, label: 'right-upper' },
+    { x: 78, y: 32, label: 'bricks' },
+    { x: 88, y: 26, label: 'rocks' },
+    { x: 95, y: 35, label: 'far-right' },
+  ];
+
+  // Difficulty scaling
+  function getSpawnDelay() {
+    const elapsed = 45 - timeLeft;
+    return Math.max(600, 1800 - elapsed * 30);
+  }
+
+  function getPeekDuration() {
+    const elapsed = 45 - timeLeft;
+    return Math.max(800, 2500 - elapsed * 40);
+  }
+
+  // === MOUSE ===
+  let mouseX = 0, mouseY = 0;
+
+  document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    crosshair.style.left = mouseX + 'px';
+    crosshair.style.top = mouseY + 'px';
+
+    // Tilt gun toward cursor
+    const gunRect = gunContainer.getBoundingClientRect();
+    const gunCenterX = gunRect.left + gunRect.width / 2;
+    const dx = mouseX - gunCenterX;
+    const angle = Math.max(-25, Math.min(25, dx * 0.03));
+    gunImg.style.transform = 'rotate(' + angle + 'deg)';
+  });
+
+  // === START GAME ===
+  startScreen.addEventListener('click', function() {
+    startScreen.style.display = 'none';
+    startGame();
+  });
+
+  gameOver.addEventListener('click', function() {
+    gameOver.style.display = 'none';
+    startGame();
+  });
+
+  function startGame() {
+    score = 0;
+    streak = 0;
+    bestStreak = 0;
+    hits = 0;
+    misses = 0;
+    shots = 0;
+    timeLeft = 45;
+    gameRunning = true;
+
+    gameContainer.style.display = 'block';
+    crosshair.style.display = 'block';
+    hud.style.display = 'flex';
+    gameOver.style.display = 'none';
+    targetLayer.innerHTML = '';
+    activeTargets = [];
+
+    updateHUD();
+    startTimer();
+    scheduleSpawn();
+  }
+
+  function startTimer() {
+    clearInterval(timerInterval);
+    timerInterval = setInterval(function() {
+      timeLeft--;
+      updateHUD();
+      if (timeLeft <= 0) {
+        endGame();
+      }
+    }, 1000);
+  }
+
+  function endGame() {
+    gameRunning = false;
+    clearInterval(timerInterval);
+    clearTimeout(spawnTimeout);
+
+    // Clean up targets
+    activeTargets.forEach(function(t) { if (t.el && t.el.parentNode) t.el.remove(); });
+    activeTargets = [];
+
+    const accuracy = shots > 0 ? Math.round((hits / shots) * 100) : 0;
+    finalScore.textContent = 'SCORE: ' + score;
+    finalStats.innerHTML =
+      'Hits: ' + hits + ' // Misses: ' + misses + '<br>' +
+      'Accuracy: ' + accuracy + '%<br>' +
+      'Best Streak: ' + bestStreak;
+
+    gameOver.style.display = 'flex';
+  }
+
+  function updateHUD() {
+    hudScore.textContent = 'SCORE: ' + score;
+    hudTimer.textContent = 'TIME: ' + timeLeft;
+    hudStreak.textContent = 'STREAK: ' + streak;
+  }
+
+  // === COMBO TEXT ===
+  function showCombo(text) {
+    hudCombo.textContent = text;
+    hudCombo.style.opacity = '1';
+    hudCombo.style.transform = 'scale(1.3)';
+    setTimeout(function() {
+      hudCombo.style.opacity = '0';
+      hudCombo.style.transform = 'scale(1)';
+    }, 800);
+  }
+
+  // === SPAWN TARGETS ===
+  function scheduleSpawn() {
+    if (!gameRunning) return;
+    spawnTimeout = setTimeout(function() {
+      spawnTarget();
+      scheduleSpawn();
+    }, getSpawnDelay());
+  }
+
+  function spawnTarget() {
+    if (!gameRunning) return;
+
+    // Pick a random spot that isn't occupied
+    const available = peekSpots.filter(function(s) {
+      return !activeTargets.some(function(t) { return t.spot.label === s.label; });
+    });
+    if (available.length === 0) return;
+
+    const spot = available[Math.floor(Math.random() * available.length)];
+    const targetW = 77;
+    const targetH = 137;
+
+    // Scale target relative to game area
+    const areaRect = gameArea.getBoundingClientRect();
+    const scale = areaRect.height / 1080;
+    const w = targetW * scale * 1.3;
+    const h = targetH * scale * 1.3;
+
+    const el = document.createElement('div');
+    el.className = 'target peek-up';
+    el.style.left = spot.x + '%';
+    el.style.top = spot.y + '%';
+    el.style.width = w + 'px';
+    el.style.height = h + 'px';
+    el.style.marginLeft = (-w / 2) + 'px';
+    el.innerHTML = '<img src="tim-cheese.png" alt="Tim Cheese">';
+
+    targetLayer.appendChild(el);
+
+    const targetObj = { el: el, spot: spot, alive: true };
+    activeTargets.push(targetObj);
+
+    // Click handler
+    el.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (!targetObj.alive || !gameRunning) return;
+      targetObj.alive = false;
+      onHit(el, e);
+    });
+
+    // Auto-hide after duration
+    const dur = getPeekDuration();
+    setTimeout(function() {
+      if (!targetObj.alive) return;
+      targetObj.alive = false;
+      el.classList.remove('peek-up');
+      el.classList.add('hide-down');
+      setTimeout(function() {
+        if (el.parentNode) el.remove();
+        activeTargets = activeTargets.filter(function(t) { return t !== targetObj; });
+      }, 300);
+    }, dur);
+  }
+
+  // === SHOOTING ===
+  document.addEventListener('click', function(e) {
+    if (!gameRunning) return;
+
+    shots++;
+
+    // Recoil
+    gunContainer.classList.remove('recoil');
+    void gunContainer.offsetWidth;
+    gunContainer.classList.add('recoil');
+
+    // Muzzle flash at crosshair
+    const flash = document.createElement('div');
+    flash.className = 'muzzle-flash';
+    flash.style.left = (e.clientX - 30) + 'px';
+    flash.style.top = (e.clientY - 30) + 'px';
+    flash.style.position = 'fixed';
+    flash.style.zIndex = '90';
+    document.body.appendChild(flash);
+    setTimeout(function() { flash.remove(); }, 200);
+
+    // Check if we hit any target (if click wasn't on a target directly)
+    let hitSomething = false;
+    activeTargets.forEach(function(t) {
+      if (!t.alive) return;
+      const rect = t.el.getBoundingClientRect();
+      if (e.clientX >= rect.left && e.clientX <= rect.right &&
+          e.clientY >= rect.top && e.clientY <= rect.bottom) {
+        hitSomething = true;
+        t.alive = false;
+        onHit(t.el, e);
+      }
+    });
+
+    if (!hitSomething) {
+      onMiss();
+    }
+  });
+
+  function onHit(el, e) {
+    hits++;
+    streak++;
+    if (streak > bestStreak) bestStreak = streak;
+
+    // Scoring: base 100 + streak bonus
+    let points = 100 + (streak - 1) * 25;
+
+    // Combo callouts
+    if (streak === 3) { showCombo('TRIPLE KILL!'); points += 50; }
+    else if (streak === 5) { showCombo('UNSTOPPABLE!'); points += 100; }
+    else if (streak === 8) { showCombo('GODLIKE!'); points += 200; }
+    else if (streak === 10) { showCombo('TIM CHEESE\'D!'); points += 500; }
+    else if (streak >= 12) { showCombo('MUNGLE MANIA!!!'); points += 500; }
+
+    score += points;
+    updateHUD();
+
+    // Play sound
+    sfxHit.currentTime = 0;
+    sfxHit.play().catch(function(){});
+
+    // Hit animation
+    el.classList.remove('peek-up');
+    el.classList.add('hit');
+
+    // Floating score text
+    const marker = document.createElement('div');
+    marker.className = 'hit-marker';
+    marker.textContent = '+' + points;
+    marker.style.left = e.clientX + 'px';
+    marker.style.top = e.clientY + 'px';
+    marker.style.position = 'fixed';
+    document.body.appendChild(marker);
+    setTimeout(function() { marker.remove(); }, 900);
+
+    // Cleanup
+    setTimeout(function() {
+      if (el.parentNode) el.remove();
+      activeTargets = activeTargets.filter(function(t) { return t.el !== el; });
+    }, 500);
+  }
+
+  function onMiss() {
+    streak = 0;
+    misses++;
+    updateHUD();
+  }
+
+})();
+</script>
+
+</body>
+</html>
