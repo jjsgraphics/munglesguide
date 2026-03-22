@@ -105,9 +105,10 @@
   }
 
   #layer-base { z-index: 1; }
-  #layer-targets { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-  #layer-mid { z-index: 3; }
-  #layer-bg { z-index: 4; }
+  #layer-targets-back { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+  #layer-bg { z-index: 3; }
+  #layer-targets-front { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+  #layer-mid { z-index: 5; }
 
   /* === TARGETS === */
   .target {
@@ -371,9 +372,10 @@
 <div id="game-container">
   <div id="game-area">
     <img src="map.jpg" class="map-layer" id="layer-base" alt="map">
-    <div id="layer-targets"></div>
-    <img src="map-mid.png" class="map-layer" id="layer-mid" alt="">
+    <div id="layer-targets-back"></div>
     <img src="map-bg.png" class="map-layer" id="layer-bg" alt="">
+    <div id="layer-targets-front"></div>
+    <img src="map-mid.png" class="map-layer" id="layer-mid" alt="">
   </div>
 
   <div id="gun-container">
@@ -408,7 +410,8 @@
   const startScreen = document.getElementById('start-screen');
   const gameContainer = document.getElementById('game-container');
   const gameArea = document.getElementById('game-area');
-  const targetLayer = document.getElementById('layer-targets');
+  const targetLayerBack = document.getElementById('layer-targets-back');
+  const targetLayerFront = document.getElementById('layer-targets-front');
   const crosshair = document.getElementById('crosshair');
   const gunContainer = document.getElementById('gun-container');
   const gunImg = document.getElementById('gun-img');
@@ -439,27 +442,27 @@
   // [xPercent, yPercent (top of target), widthPx, heightPx]
   // y is where the TARGET TOP sits — bottom is clipped by cover layers
   const peekSpots = [
-    { x: 3, y: 22, label: 'far-left' },
-    { x: 14, y: 28, label: 'vault' },
-    { x: 28, y: 20, label: 'left-upper' },
-    { x: 38, y: 35, label: 'left-stairs' },
-    { x: 48, y: 25, label: 'center-door' },
-    { x: 56, y: 30, label: 'center-right' },
-    { x: 68, y: 22, label: 'right-upper' },
-    { x: 78, y: 32, label: 'bricks' },
-    { x: 88, y: 26, label: 'rocks' },
-    { x: 95, y: 35, label: 'far-right' },
+    { x: 3, y: 22, label: 'far-left', layer: 'back' },
+    { x: 14, y: 28, label: 'vault', layer: 'front' },
+    { x: 28, y: 20, label: 'left-upper', layer: 'back' },
+    { x: 38, y: 35, label: 'left-stairs', layer: 'front' },
+    { x: 48, y: 25, label: 'center-door', layer: 'back' },
+    { x: 56, y: 30, label: 'center-right', layer: 'front' },
+    { x: 68, y: 22, label: 'right-upper', layer: 'back' },
+    { x: 78, y: 32, label: 'bricks', layer: 'front' },
+    { x: 88, y: 26, label: 'rocks', layer: 'front' },
+    { x: 95, y: 35, label: 'far-right', layer: 'back' },
   ];
 
   // Difficulty scaling
   function getSpawnDelay() {
     const elapsed = 30 - timeLeft;
-    return Math.max(350, 1000 - elapsed * 25);
+    return Math.max(250, 700 - elapsed * 20);
   }
 
   function getPeekDuration() {
     const elapsed = 30 - timeLeft;
-    return Math.max(700, 2000 - elapsed * 50);
+    return Math.max(600, 1600 - elapsed * 45);
   }
 
   // === MOUSE ===
@@ -502,7 +505,8 @@
     crosshair.style.display = 'block';
     hud.style.display = 'flex';
     gameOver.style.display = 'none';
-    targetLayer.innerHTML = '';
+    targetLayerBack.innerHTML = '';
+    targetLayerFront.innerHTML = '';
     activeTargets = [];
 
     updateHUD();
@@ -596,7 +600,8 @@
     el.style.setProperty('--tilt', angle + 'deg');
     el.innerHTML = '<img src="tim-cheese.png" alt="Tim Cheese" draggable="false">';
 
-    targetLayer.appendChild(el);
+    const layer = spot.layer === 'back' ? targetLayerBack : targetLayerFront;
+    layer.appendChild(el);
 
     const targetObj = { el: el, spot: spot, alive: true };
     activeTargets.push(targetObj);
